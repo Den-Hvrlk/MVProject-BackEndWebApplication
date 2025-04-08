@@ -10,16 +10,15 @@ var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__De
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        //policy.WithOrigins(
-        //        "https://mv-project-front-end-application.vercel.app", // для продакшн-фронта
-        //        "http://localhost:5173" // для разработки
-        //    )
         policy
+            .WithOrigins(
+                "http://localhost:5173",
+                "https://mv-project-front-end-application.vercel.app"
+            )
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowAnyOrigin();
+            .AllowAnyMethod();
     });
 });
 
@@ -30,7 +29,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
