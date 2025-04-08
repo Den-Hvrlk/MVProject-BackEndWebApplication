@@ -2,6 +2,7 @@
 using BackEndWebApplication.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 
 namespace BackEndWebApplication.Controllers.UsersController
@@ -26,6 +27,9 @@ namespace BackEndWebApplication.Controllers.UsersController
             {
                 return BadRequest("Дана пошта вже зареєстрована!");
             }
+
+            char? sex = string.IsNullOrEmpty(request.Sex) ? null : request.Sex[0];
+
             var sql = "EXEC CreateUser @Email = {0}, @Phone = {1}, @Sex = {2}, @BirthDate = {3}, @UserAvatarPath = {4}";
             var result = _context.Database.ExecuteSqlRaw(
                 sql,
