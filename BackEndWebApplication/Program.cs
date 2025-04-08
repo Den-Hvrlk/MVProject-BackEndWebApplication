@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // можно убрать, если ты не используешь куки или авторизацию
+            .AllowAnyOrigin();
     });
 });
 
