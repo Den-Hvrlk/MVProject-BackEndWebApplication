@@ -19,5 +19,5 @@ public partial class User
 
     public virtual ICollection<VolunteerFund> UserFunds { get; set; } = new List<VolunteerFund>();
 
-    public virtual MilitaryGroup UserGroup { get; set; } = new MilitaryGroup();
+    public virtual ICollection<MilitaryGroup> UserGroups { get; set; } = new List<MilitaryGroup>();
 }

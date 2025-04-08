@@ -1,6 +1,8 @@
 ﻿using BackEndWebApplication.Data;
+using BackEndWebApplication.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BackEndWebApplication.Controllers.UsersController
 {
@@ -16,19 +18,26 @@ namespace BackEndWebApplication.Controllers.UsersController
         }
 
         [HttpPost("CreateUser")]
-        public IActionResult CreateUser(string email, string? phone, string? sex, DateTime? birthDate, string? avatarPath)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
+            var existingUser = await _context.User.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (existingUser != null)
+            {
+                return BadRequest("Дана пошта вже зареєстрована!");
+            }
             var sql = "EXEC CreateUser @Email = {0}, @Phone = {1}, @Sex = {2}, @BirthDate = {3}, @UserAvatarPath = {4}";
             var result = _context.Database.ExecuteSqlRaw(
                 sql,
-                email,
-                phone ?? (object)DBNull.Value,
-                sex ?? (object)DBNull.Value,
-                birthDate ?? (object)DBNull.Value,
-                avatarPath ?? (object)DBNull.Value
+                request.Email,
+                request.Phone ?? null,
+                request.Sex ?? null,
+                request.BirthDate ?? null,
+                request.AvatarPath ?? null
             );
 
-            return Ok("User successfully created.");
+            return Ok("Ви успішно зареєструвалися!");
         }
+
     }
 }

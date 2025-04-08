@@ -25,8 +25,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<FundImage> FundImage { get; set; }
 
-    public virtual DbSet<FundMember> FundMembers { get; set; }
-
     public virtual DbSet<FundProject> FundProject { get; set; }
 
     public virtual DbSet<FundProjectImage> FundProjectImage { get; set; }
@@ -46,8 +44,6 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<ListOfCompleteRequest> ListOfCompleteRequest { get; set; }
 
     public virtual DbSet<MilitaryGroup> MilitaryGroup { get; set; }
-
-    public virtual DbSet<MilitaryGrpMember> MilitaryGrpMembers { get; set; }
 
     public virtual DbSet<MilitaryRequest> MilitaryRequest { get; set; }
 
@@ -350,7 +346,7 @@ public partial class AppDbContext : DbContext
                 .IsFixedLength();
             entity.Property(e => e.UserAvatarPath).HasMaxLength(255);
 
-            entity.HasMany(d => d.IdFund).WithMany(p => p.IdUser)
+            entity.HasMany(d => d.UserFunds).WithMany(p => p.IdUser)
                 .UsingEntity<Dictionary<string, object>>(
                     "FundMember",
                     r => r.HasOne<VolunteerFund>().WithMany()
@@ -366,7 +362,7 @@ public partial class AppDbContext : DbContext
                         j.IndexerProperty<Guid>("IdFund").HasColumnName("ID_Fund");
                     });
 
-            entity.HasMany(d => d.IdGroup).WithMany(p => p.IdUser)
+            entity.HasMany(d => d.UserGroups).WithMany(p => p.IdUsers)
                 .UsingEntity<Dictionary<string, object>>(
                     "MilitaryGrpMember",
                     r => r.HasOne<MilitaryGroup>().WithMany()

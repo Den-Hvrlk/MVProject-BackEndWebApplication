@@ -170,3 +170,4 @@ D:\My\Univer\Thesis\BackEndWebApplication\BackEndWebApplication\obj\Debug\net8.0
 D:\My\Univer\Thesis\BackEndWebApplication\BackEndWebApplication\obj\Debug\net8.0\BackEndWebApplication.genruntimeconfig.cache
 D:\My\Univer\Thesis\BackEndWebApplication\BackEndWebApplication\obj\Debug\net8.0\ref\BackEndWebApplication.dll
 D:\My\Univer\Thesis\BackEndWebApplication\BackEndWebApplication\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\My\Univer\Thesis\BackEndWebApplication\BackEndWebApplication\obj\Debug\net8.0\BackEndWebApplication.sourcelink.json
