@@ -2,6 +2,9 @@
 **/obj/
 **/bin/
 
+../obj/
+../bin/
+
 /bin/
 /obj/
 /build/
