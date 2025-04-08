@@ -11,3 +11,6 @@
 # Исключить файлы, специфичные для ОС
 .DS_Store
 Thumbs.db
+
+# Ignore .env files containing sensitive data
+*.env
