@@ -12,10 +12,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://mv-project-front-end-application.vercel.app") // Разрешаем доступ с фронтенда
-              .AllowAnyHeader()  // Разрешаем все заголовки
-              .AllowAnyMethod()  // Разрешаем все HTTP методы
-              .AllowCredentials();  // Разрешаем отправку куки и авторизацию (если нужно)
+        policy.WithOrigins(
+                "https://mv-project-front-end-application.vercel.app", // для продакшн-фронта
+                "http://localhost:5173" // для разработки
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // можно убрать, если ты не используешь куки или авторизацию
     });
 });
 
