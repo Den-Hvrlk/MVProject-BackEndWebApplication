@@ -21,6 +21,7 @@ namespace BackEndWebApplication.Controllers.UsersController
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
+            Console.WriteLine($"{request.Email}, {request.Phone}, {request.Sex}, {request.BirthDate}");
             var existingUser = await _context.User.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (existingUser != null)
