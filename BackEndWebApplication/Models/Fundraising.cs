@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models;
 
 public partial class Fundraising
 {
-    public Guid IdFundraising { get; set; }
+    public Guid ID_Fundraising { get; set; }
 
     public decimal FundrGoal { get; set; }
 
@@ -17,13 +17,13 @@ public partial class Fundraising
 
     public string? FundrImagePath { get; set; }
 
-    public Guid IdGroup { get; set; }
+    public Guid ID_Group { get; set; }
 
-    public virtual ICollection<CompleteFundraising> CompleteFundraising { get; set; } = new List<CompleteFundraising>();
+    public virtual ICollection<CompleteFundraising> CompleteFundraisings { get; set; } = new List<CompleteFundraising>();
 
-    public virtual MilitaryGroup IdGroupNavigation { get; set; } = null!;
+    public virtual MilitaryGroup ID_GroupNavigation { get; set; } = null!;
 
-    public virtual ICollection<Category> IdCategory { get; set; } = new List<Category>();
+    public virtual ICollection<Category> ID_Categories { get; set; } = new List<Category>();
 
-    public virtual ICollection<VolunteerFund> IdFund { get; set; } = new List<VolunteerFund>();
+    public virtual ICollection<VolunteerFund> ID_Funds { get; set; } = new List<VolunteerFund>();
 }

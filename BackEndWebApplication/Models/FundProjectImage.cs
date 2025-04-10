@@ -5,11 +5,11 @@ namespace BackEndWebApplication.Models;
 
 public partial class FundProjectImage
 {
-    public string IdImage { get; set; } = null!;
+    public string ID_Image { get; set; } = null!;
 
-    public Guid IdProject { get; set; }
+    public Guid ID_Project { get; set; }
 
     public string ProjectImagePath { get; set; } = null!;
 
-    public virtual FundProject IdProjectNavigation { get; set; } = null!;
+    public virtual FundProject ID_ProjectNavigation { get; set; } = null!;
 }

@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models;
 
 public partial class MilitaryRequest
 {
-    public Guid IdRequest { get; set; }
+    public Guid ID_Request { get; set; }
 
     public DateOnly? RequestCreateDate { get; set; }
 
@@ -15,11 +15,11 @@ public partial class MilitaryRequest
 
     public string? RequestImagePath { get; set; }
 
-    public Guid IdGroup { get; set; }
+    public Guid ID_Group { get; set; }
 
-    public virtual ICollection<CompleteRequest> CompleteRequest { get; set; } = new List<CompleteRequest>();
+    public virtual ICollection<CompleteRequest> CompleteRequests { get; set; } = new List<CompleteRequest>();
 
-    public virtual MilitaryGroup IdGroupNavigation { get; set; } = null!;
+    public virtual MilitaryGroup ID_GroupNavigation { get; set; } = null!;
 
-    public virtual ICollection<Category> IdCategory { get; set; } = new List<Category>();
+    public virtual ICollection<Category> ID_Categories { get; set; } = new List<Category>();
 }

@@ -5,9 +5,9 @@ namespace BackEndWebApplication.Models.Views;
 
 public partial class ListOfCompleteRequest
 {
-    public Guid IdRequest { get; set; }
+    public Guid ID_Request { get; set; }
 
-    public Guid IdFund { get; set; }
+    public Guid ID_Fund { get; set; }
 
     public DateOnly? CompleteDate { get; set; }
 }

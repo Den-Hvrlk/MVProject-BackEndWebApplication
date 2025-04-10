@@ -5,9 +5,9 @@ namespace BackEndWebApplication.Models.Views;
 
 public partial class ListOfCompleteFundraising
 {
-    public Guid IdFundraising { get; set; }
+    public Guid ID_Fundraising { get; set; }
 
-    public Guid IdFund { get; set; }
+    public Guid ID_Fund { get; set; }
 
     public DateOnly? CompleteDate { get; set; }
 

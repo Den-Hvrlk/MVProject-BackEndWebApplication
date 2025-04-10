@@ -20,4 +20,8 @@ public partial class User
     public DateOnly? BirthDate { get; set; }
 
     public string? UserAvatarPath { get; set; }
+
+    public virtual ICollection<VolunteerFund> ID_Funds { get; set; } = new List<VolunteerFund>();
+
+    public virtual ICollection<MilitaryGroup> ID_Groups { get; set; } = new List<MilitaryGroup>();
 }

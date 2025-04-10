@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models.Views;
 
 public partial class ListOfActiveFundraising
 {
-    public Guid IdFundraising { get; set; }
+    public Guid ID_Fundraising { get; set; }
 
     public string FundrHeader { get; set; } = null!;
 
@@ -15,5 +15,5 @@ public partial class ListOfActiveFundraising
 
     public string? FundrImagePath { get; set; }
 
-    public Guid IdGroup { get; set; }
+    public Guid ID_Group { get; set; }
 }

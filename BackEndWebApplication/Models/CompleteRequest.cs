@@ -5,13 +5,13 @@ namespace BackEndWebApplication.Models;
 
 public partial class CompleteRequest
 {
-    public Guid IdRequest { get; set; }
+    public Guid ID_Request { get; set; }
 
-    public Guid IdFund { get; set; }
+    public Guid ID_Fund { get; set; }
 
     public DateOnly? CompleteDate { get; set; }
 
-    public virtual VolunteerFund IdFundNavigation { get; set; } = null!;
+    public virtual VolunteerFund ID_FundNavigation { get; set; } = null!;
 
-    public virtual MilitaryRequest IdRequestNavigation { get; set; } = null!;
+    public virtual MilitaryRequest ID_RequestNavigation { get; set; } = null!;
 }

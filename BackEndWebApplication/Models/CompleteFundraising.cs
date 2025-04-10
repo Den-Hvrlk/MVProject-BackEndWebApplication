@@ -5,15 +5,15 @@ namespace BackEndWebApplication.Models;
 
 public partial class CompleteFundraising
 {
-    public Guid IdFundraising { get; set; }
+    public Guid ID_Fundraising { get; set; }
 
-    public Guid IdFund { get; set; }
+    public Guid ID_Fund { get; set; }
 
     public DateOnly? CompleteDate { get; set; }
 
     public decimal FundsRaised { get; set; }
 
-    public virtual VolunteerFund IdFundNavigation { get; set; } = null!;
+    public virtual VolunteerFund ID_FundNavigation { get; set; } = null!;
 
-    public virtual Fundraising IdFundraisingNavigation { get; set; } = null!;
+    public virtual Fundraising ID_FundraisingNavigation { get; set; } = null!;
 }

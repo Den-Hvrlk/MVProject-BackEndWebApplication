@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models;
 
 public partial class FundProject
 {
-    public Guid IdProject { get; set; }
+    public Guid ID_Project { get; set; }
 
     public string ProjectName { get; set; } = null!;
 
@@ -13,9 +13,9 @@ public partial class FundProject
 
     public DateOnly? ProjectCreateDate { get; set; }
 
-    public Guid? IdFund { get; set; }
+    public Guid? ID_Fund { get; set; }
 
-    public virtual ICollection<FundProjectImage> FundProjectImage { get; set; } = new List<FundProjectImage>();
+    public virtual ICollection<FundProjectImage> FundProjectImages { get; set; } = new List<FundProjectImage>();
 
-    public virtual VolunteerFund? IdFundNavigation { get; set; }
+    public virtual VolunteerFund? ID_FundNavigation { get; set; }
 }

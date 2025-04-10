@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models;
 
 public partial class MilitaryGroup
 {
-    public Guid IdGroup { get; set; }
+    public Guid ID_Group { get; set; }
 
     public string GroupName { get; set; } = null!;
 
@@ -13,11 +13,11 @@ public partial class MilitaryGroup
 
     public DateOnly? CreateGroupDate { get; set; }
 
-    public virtual ICollection<Fundraising> Fundraising { get; set; } = new List<Fundraising>();
+    public virtual ICollection<Fundraising> Fundraisings { get; set; } = new List<Fundraising>();
 
-    public virtual ICollection<GroupImage> GroupImage { get; set; } = new List<GroupImage>();
+    public virtual ICollection<GroupImage> GroupImages { get; set; } = new List<GroupImage>();
 
-    public virtual ICollection<MilitaryRequest> MilitaryRequest { get; set; } = new List<MilitaryRequest>();
+    public virtual ICollection<MilitaryRequest> MilitaryRequests { get; set; } = new List<MilitaryRequest>();
 
-    public virtual ICollection<User> IdUsers { get; set; } = new List<User>();
+    public virtual ICollection<User> ID_Users { get; set; } = new List<User>();
 }

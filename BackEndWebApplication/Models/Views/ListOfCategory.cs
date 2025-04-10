@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace BackEndWebApplication.Models.Views;
 
-public partial class ListOfCategories
+public partial class ListOfCategory
 {
-    public string IdCategory { get; set; } = null!;
+    public string ID_Category { get; set; } = null!;
 
     public string CategoryName { get; set; } = null!;
 

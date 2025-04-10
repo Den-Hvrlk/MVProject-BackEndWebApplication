@@ -5,7 +5,7 @@ namespace BackEndWebApplication.Models;
 
 public partial class VolunteerFund
 {
-    public Guid IdFund { get; set; }
+    public Guid ID_Fund { get; set; }
 
     public string FundName { get; set; } = null!;
 
@@ -13,15 +13,15 @@ public partial class VolunteerFund
 
     public DateOnly? FundCreateDate { get; set; }
 
-    public virtual ICollection<CompleteFundraising> CompleteFundraising { get; set; } = new List<CompleteFundraising>();
+    public virtual ICollection<CompleteFundraising> CompleteFundraisings { get; set; } = new List<CompleteFundraising>();
 
-    public virtual ICollection<CompleteRequest> CompleteRequest { get; set; } = new List<CompleteRequest>();
+    public virtual ICollection<CompleteRequest> CompleteRequests { get; set; } = new List<CompleteRequest>();
 
-    public virtual ICollection<FundImage> FundImage { get; set; } = new List<FundImage>();
+    public virtual ICollection<FundImage> FundImages { get; set; } = new List<FundImage>();
 
-    public virtual ICollection<FundProject> FundProject { get; set; } = new List<FundProject>();
+    public virtual ICollection<FundProject> FundProjects { get; set; } = new List<FundProject>();
 
-    public virtual ICollection<Fundraising> IdFundraising { get; set; } = new List<Fundraising>();
+    public virtual ICollection<Fundraising> ID_Fundraisings { get; set; } = new List<Fundraising>();
 
-    public virtual ICollection<User> IdUser { get; set; } = new List<User>();
+    public virtual ICollection<User> ID_Users { get; set; } = new List<User>();
 }
