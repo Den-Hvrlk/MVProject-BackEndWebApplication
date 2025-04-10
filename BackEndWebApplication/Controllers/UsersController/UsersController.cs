@@ -21,7 +21,7 @@ namespace BackEndWebApplication.Controllers.UsersController
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            Console.WriteLine($"{request.Email}, {request.Phone}, {request.Sex}, {request.BirthDate}");
+            Console.WriteLine($"{request.Email}, {request.UserName}, {request.Password}, {request.Phone}, {request.Sex}, {request.BirthDate}");
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (existingUser != null)
@@ -31,10 +31,12 @@ namespace BackEndWebApplication.Controllers.UsersController
 
             char? sex = string.IsNullOrEmpty(request.Sex) ? null : request.Sex[0];
 
-            var sql = "EXEC CreateUser @Email = {0}, @Phone = {1}, @Sex = {2}, @BirthDate = {3}, @UserAvatarPath = {4}";
+            var sql = "EXEC CreateUser @Email = {0}, @UserName = {1}, @HashPassword = {2}, @Phone = {3}, @Sex = {4}, @BirthDate = {5}, @UserAvatarPath = {6}";
             var result = _context.Database.ExecuteSqlRaw(
                 sql,
                 request.Email,
+                request.UserName,
+                request.Password,
                 request.Phone ?? null,
                 request.Sex ?? null,
                 request.BirthDate ?? null,
