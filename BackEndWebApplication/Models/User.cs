@@ -5,9 +5,13 @@ namespace BackEndWebApplication.Models;
 
 public partial class User
 {
-    public Guid IdUser { get; set; }
+    public Guid ID_User { get; set; }
 
     public string Email { get; set; } = null!;
+
+    public string UserName { get; set; } = null!;
+
+    public string HashPassword { get; set; } = null!;
 
     public string? Phone { get; set; }
 
@@ -16,8 +20,4 @@ public partial class User
     public DateOnly? BirthDate { get; set; }
 
     public string? UserAvatarPath { get; set; }
-
-    public virtual ICollection<VolunteerFund> UserFunds { get; set; } = new List<VolunteerFund>();
-
-    public virtual ICollection<MilitaryGroup> UserGroups { get; set; } = new List<MilitaryGroup>();
 }
