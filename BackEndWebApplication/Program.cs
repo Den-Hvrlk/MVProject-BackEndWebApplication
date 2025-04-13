@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
                 "https://mv-project-front-end-application.vercel.app"
             )
             .AllowAnyHeader()
+            .AllowCredentials()
             .AllowAnyMethod();
     });
 });
@@ -40,9 +41,9 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseCors("AllowFrontend");
-
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {
@@ -50,6 +51,7 @@ app.UseCookiePolicy(new CookiePolicyOptions
     MinimumSameSitePolicy = SameSiteMode.None,
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
