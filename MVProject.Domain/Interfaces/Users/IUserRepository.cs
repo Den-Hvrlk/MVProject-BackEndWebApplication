@@ -1,9 +1,4 @@
 ﻿using MVProject.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVProject.Domain.Interfaces.Users
 {
@@ -11,5 +6,6 @@ namespace MVProject.Domain.Interfaces.Users
     {
         Task<User> GetByEmailAsync(string email);
         Task AddAsync(User user);
+        Task<User?> GetByIdAsync(Guid id);
     }
 }

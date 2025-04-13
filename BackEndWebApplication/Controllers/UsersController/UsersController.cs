@@ -35,15 +35,20 @@ namespace BackEndWebApplication.Controllers.UsersController
             if (!success)
                 return Unauthorized(error);
 
-            Response.Cookies.Append("tasty-cookies", data?.Token!, new CookieOptions
+            Response.Cookies.Append("tasty-cookies", data?.RefreshToken!, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+                Expires = DateTimeOffset.UtcNow.AddDays(7)
             });
 
-            return Ok(data);
+            return Ok(new
+            {
+                AccessToken = data?.AccessToken,
+                Message = data?.Message,
+                UserName = data?.UserName
+            });
         }
     }
 }

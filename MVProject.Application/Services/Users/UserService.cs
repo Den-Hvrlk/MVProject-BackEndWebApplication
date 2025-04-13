@@ -47,9 +47,18 @@ namespace MVProject.Application.Services.Users
             if (!isPasswordValid)
                 return (false, "Невірний пароль!", null);
 
-            var token = _jwtProvider.GenerateToken(user);
+            var accessToken = _jwtProvider.GenerateAccessToken(user);
+            var refreshToken = _jwtProvider.GenerateRefreshToken(user);
 
-            return (true, null, new LoginUserResponse(token, "Ви успішно авторизувалися!", user.UserName));
+            return (true, null, new LoginUserResponse(accessToken, refreshToken, "Ви успішно авторизувалися!", user.UserName));
+        }
+
+        public async Task<User?> GetUserByIdAsync(Guid id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+                return null;
+            return user;
         }
     }
 }

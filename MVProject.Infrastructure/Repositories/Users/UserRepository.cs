@@ -34,5 +34,10 @@ namespace MVProject.Infrastructure.Repositories.Users
                 user.UserAvatarPath ?? null!
             );
         }
+
+        public async Task<User?> GetByIdAsync(Guid id)
+        {
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.ID_User == id);
+        }
     }
 }
