@@ -43,14 +43,13 @@ namespace MVProject.Application.Services.Users
             if (user == null)
                 return (false, "Користувача з такою поштою не існує!", null);
 
-            Console.Write(user.HashPassword, request.Password);
             var isPasswordValid = _passwordHasher.VerifyPassword(user.HashPassword, request.Password);
             if (!isPasswordValid)
                 return (false, "Невірний пароль!", null);
 
             var token = _jwtProvider.GenerateToken(user);
 
-            return (true, null, new LoginUserResponse(token, "Ви успішно авторизувалися!"));
+            return (true, null, new LoginUserResponse(token, "Ви успішно авторизувалися!", user.UserName));
         }
     }
 }
