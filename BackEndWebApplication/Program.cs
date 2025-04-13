@@ -1,6 +1,10 @@
-using BackEndWebApplication.Data;
+using MVProject.Infrastructure.Db;
+using MVProject.Application.Interfaces;
+using MVProject.Domain.Interfaces.Users;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using MVProject.Infrastructure.Services.Users;
+using MVProject.Infrastructure.Repositories.Users;
 
 Env.Load();
 
@@ -22,6 +26,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
