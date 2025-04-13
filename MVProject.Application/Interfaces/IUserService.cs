@@ -9,6 +9,7 @@ namespace MVProject.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<string> CreateUserAsync(CreateUserRequest request);
+        Task<string> Register(RegisterUserRequest request);
+        Task<(bool Success, string? Error, LoginUserResponse? Data)> Login(LoginUserRequest request);
     }
 }

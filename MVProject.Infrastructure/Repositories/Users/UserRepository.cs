@@ -14,14 +14,14 @@ namespace MVProject.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            return await _context.Users.AnyAsync(u => u.Email == email);
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower()) ?? null!;
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task AddAsync(User user)
         {
-            var sql = "EXEC CreateUser @Email = {0}, @UserName = {1}, @HashPassword = {2}, @Phone = {3}, @Sex = {4}, @BirthDate = {5}, @UserAvatarPath = {6}";
+            var sql = "EXEC CreateUser @Email = {0}, @UserName = {1}, @HashPassword = {2}";
 
             await _context.Database.ExecuteSqlRawAsync(
                 sql,
