@@ -17,7 +17,7 @@ namespace MVProject.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet("refresh")]
+        [HttpPost("refresh")]
         public async Task<IActionResult> Refresh()
         {
             var refreshToken = Request.Cookies["tasty-cookies"];
@@ -36,7 +36,12 @@ namespace MVProject.API.Controllers
 
             var newAccessToken = _jwtProvider.GenerateAccessToken(user);
 
-            return Ok(new { accessToken = newAccessToken });
+            return Ok(new
+            {
+                accessToken = newAccessToken,
+                email = user.Email,
+                userName = user.UserName,
+            });
         }
 
         [HttpPost("logout")]
