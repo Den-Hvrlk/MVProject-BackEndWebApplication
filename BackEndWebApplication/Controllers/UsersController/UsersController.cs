@@ -1,6 +1,8 @@
 ﻿using MVProject.Application.DTOs;
 using MVProject.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BackEndWebApplication.Controllers.UsersController
 {
@@ -51,6 +53,24 @@ namespace BackEndWebApplication.Controllers.UsersController
                 Message = data?.Message,
                 UserName = data?.UserName
             });
+        }
+
+        [HttpGet("Profile")]
+        [Authorize]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized("Недійсний токен або відсутній ідентифікатор користувача.");
+            }
+
+            var user = await _userService.GetUserProfileAsync(userId);
+            if (user == null)
+                return NotFound("Користувача не знайдено.");
+
+            return Ok(user);
         }
     }
 }

@@ -11,11 +11,17 @@ namespace MVProject.Infrastructure
     {
         public string GenerateAccessToken(User user)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
+                new Claim(ClaimTypes.NameIdentifier, user.ID_User.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
+
+            foreach (var role in user.ID_Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.ID_Role.ToString()));
+            }
 
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")!)

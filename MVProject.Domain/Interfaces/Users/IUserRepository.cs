@@ -7,5 +7,6 @@ namespace MVProject.Domain.Interfaces.Users
         Task<User?> GetByEmailAsync(string email);
         Task AddAsync(User user);
         Task<User?> GetByIdAsync(Guid id);
+        Task<User?> GetProfileByIdAsync(Guid userId);
     }
 }

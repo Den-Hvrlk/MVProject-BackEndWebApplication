@@ -2,6 +2,7 @@
 using MVProject.Domain.Interfaces.Users;
 using MVProject.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
+using MVProject.Application.DTOs;
 
 namespace MVProject.Infrastructure.Repositories.Users
 {
@@ -41,6 +42,16 @@ namespace MVProject.Infrastructure.Repositories.Users
         public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.ID_User == id);
+        }
+
+        public async Task<User?> GetProfileByIdAsync(Guid userId)
+        {
+            var user = await _context.Users
+                .Include(u => u.ID_Roles)
+                .FirstOrDefaultAsync(u => u.ID_User == userId);
+
+            if (user == null) return null;
+            return user;
         }
     }
 }

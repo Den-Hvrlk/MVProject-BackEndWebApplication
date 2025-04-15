@@ -62,5 +62,26 @@ namespace MVProject.Application.Services.Users
                 return null;
             return user;
         }
+
+        public async Task<UserProfileResponse?> GetUserProfileAsync(Guid userId)
+        {
+            var user = await _userRepository.GetProfileByIdAsync(userId);
+
+            if (user == null)
+                return null;
+
+            return new UserProfileResponse
+            {
+                Id = user.ID_User,
+                Email = user.Email,
+                UserName = user.UserName,
+                Roles = user.ID_Roles.Select(r => r.ID_Role).ToArray(),
+                Sex = user.Sex,
+                BirthDate = user.BirthDate,
+                Phone = user.Phone,
+                AvatarPath = user.UserAvatarPath
+            };
+        }
+
     }
 }

@@ -13,5 +13,6 @@ namespace MVProject.Application.Interfaces
         Task<string> Register(RegisterUserRequest request);
         Task<(bool Success, string? Error, LoginUserResponse? Data)> Login(LoginUserRequest request);
         Task<User?> GetUserByIdAsync(Guid id);
+        Task<UserProfileResponse?> GetUserProfileAsync(Guid userId);
     }
 }
