@@ -41,7 +41,9 @@ namespace MVProject.Infrastructure.Repositories.Users
 
         public async Task<User?> GetByIdAsync(Guid id)
         {
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.ID_User == id);
+            return await _context.Users
+                        .Include(u => u.ID_Roles)
+                        .FirstOrDefaultAsync(u => u.ID_User == id);
         }
 
         public async Task<User?> GetProfileByIdAsync(Guid userId)
