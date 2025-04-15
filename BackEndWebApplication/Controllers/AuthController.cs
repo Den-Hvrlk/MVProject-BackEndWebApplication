@@ -38,8 +38,10 @@ namespace MVProject.API.Controllers
 
             return Ok(new
             {
+                id = user.ID_User,
                 accessToken = newAccessToken,
                 email = user.Email,
+                roles = user.ID_Roles.Select(r => r.ID_Role).ToArray(),
                 userName = user.UserName,
             });
         }
