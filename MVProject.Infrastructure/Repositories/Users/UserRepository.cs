@@ -14,9 +14,12 @@ namespace MVProject.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<User> GetByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower()) ?? null!;
+            return await _context.Users
+                .Include(u => u.ID_Roles)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
         public async Task AddAsync(User user)
@@ -29,7 +32,7 @@ namespace MVProject.Infrastructure.Repositories.Users
                 user.UserName,
                 user.HashPassword,
                 user.Phone ?? null!,
-                user.Sex.HasValue ? user.Sex.Value : (char?)null!,
+                user.Sex ?? null!,
                 user.BirthDate ?? null!,
                 user.UserAvatarPath ?? null!
             );

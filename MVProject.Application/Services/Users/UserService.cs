@@ -50,7 +50,9 @@ namespace MVProject.Application.Services.Users
             var accessToken = _jwtProvider.GenerateAccessToken(user);
             var refreshToken = _jwtProvider.GenerateRefreshToken(user);
 
-            return (true, null, new LoginUserResponse(accessToken, refreshToken, "Ви успішно авторизувалися!", user.UserName));
+            int[] roles = user.ID_Roles.Select(r => r.ID_Role).ToArray();
+
+            return (true, null, new LoginUserResponse(user.ID_User, roles, accessToken, refreshToken, "Ви успішно авторизувалися!", user.UserName));
         }
 
         public async Task<User?> GetUserByIdAsync(Guid id)

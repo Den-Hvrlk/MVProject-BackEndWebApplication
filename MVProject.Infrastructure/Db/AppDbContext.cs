@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MVProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using MVProject.Domain.Entities.Views;
+using MVProject.API.MVProject.Domain.Entities;
 
 namespace MVProject.Infrastructure.Db;
 
@@ -43,12 +44,28 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<MilitaryRequest> MilitaryRequests { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<VolunteerFund> VolunteerFunds { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.ID_Role).HasName("PK__Role__43DCD32D2F63D41B");
+
+            entity.ToTable("Role");
+
+            entity.HasIndex(e => e.RoleName, "UQ__Role__8A2B6160BCE80CCF").IsUnique();
+
+            entity.Property(e => e.ID_Role)
+                .ValueGeneratedNever()
+                .HasColumnName("ID_Role");
+            entity.Property(e => e.RoleName).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.ID_Category).HasName("PK__Category__6DB3A68A945F22AD");
@@ -304,11 +321,13 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.ID_User).HasName("PK__User__ED4DE442EC191695");
+            entity.HasKey(e => e.ID_User).HasName("PK__User__ED4DE4420BDC30C6");
 
             entity.ToTable("User");
 
-            entity.Property(e => e.ID_User).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.ID_User)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("ID_User");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -319,9 +338,8 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Sex)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .IsFixedLength();
+                .HasMaxLength(6)
+                .IsUnicode(false);
             entity.Property(e => e.UserAvatarPath).HasMaxLength(255);
             entity.Property(e => e.UserName).HasMaxLength(255);
 
@@ -330,14 +348,16 @@ public partial class AppDbContext : DbContext
                     "FundMember",
                     r => r.HasOne<VolunteerFund>().WithMany()
                         .HasForeignKey("ID_Fund")
-                        .HasConstraintName("FK__FundMembe__ID_Fu__4222D4EF"),
+                        .HasConstraintName("FK__FundMembe__ID_Fu__220B0B18"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("ID_User")
-                        .HasConstraintName("FK__FundMembe__ID_Us__412EB0B6"),
+                        .HasConstraintName("FK__FundMembe__ID_Us__2116E6DF"),
                     j =>
                     {
-                        j.HasKey("ID_User", "ID_Fund").HasName("PK__FundMemb__1CD17FA70BBB0AD7");
+                        j.HasKey("ID_User", "ID_Fund").HasName("PK__FundMemb__1CD17FA7329325C5");
                         j.ToTable("FundMember");
+                        j.IndexerProperty<Guid>("ID_User").HasColumnName("ID_User");
+                        j.IndexerProperty<Guid>("ID_Fund").HasColumnName("ID_Fund");
                     });
 
             entity.HasMany(d => d.ID_Groups).WithMany(p => p.ID_Users)
@@ -345,14 +365,35 @@ public partial class AppDbContext : DbContext
                     "MilitaryGrpMember",
                     r => r.HasOne<MilitaryGroup>().WithMany()
                         .HasForeignKey("ID_Group")
-                        .HasConstraintName("FK__MilitaryG__ID_Gr__4BAC3F29"),
+                        .HasConstraintName("FK__MilitaryG__ID_Gr__2B947552"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("ID_User")
-                        .HasConstraintName("FK__MilitaryG__ID_Us__4AB81AF0"),
+                        .HasConstraintName("FK__MilitaryG__ID_Us__2AA05119"),
                     j =>
                     {
-                        j.HasKey("ID_User", "ID_Group").HasName("PK__Military__742CC19F80CB5A03");
+                        j.HasKey("ID_User", "ID_Group").HasName("PK__Military__742CC19FBB4E920D");
                         j.ToTable("MilitaryGrpMember");
+                        j.IndexerProperty<Guid>("ID_User").HasColumnName("ID_User");
+                        j.IndexerProperty<Guid>("ID_Group").HasColumnName("ID_Group");
+                    });
+
+            entity.HasMany(d => d.ID_Roles).WithMany(p => p.ID_User)
+                .UsingEntity<Dictionary<string, object>>(
+                    "UserRole",
+                    r => r.HasOne<Role>().WithMany()
+                        .HasForeignKey("ID_Role")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__UserRole__ID_Rol__1881A0DE"),
+                    l => l.HasOne<User>().WithMany()
+                        .HasForeignKey("ID_User")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__UserRole__ID_Use__178D7CA5"),
+                    j =>
+                    {
+                        j.HasKey("ID_User", "ID_Role").HasName("PK__UserRole__297029704210CA37");
+                        j.ToTable("UserRole");
+                        j.IndexerProperty<Guid>("ID_User").HasColumnName("ID_User");
+                        j.IndexerProperty<int>("ID_Role").HasColumnName("ID_Role");
                     });
         });
 

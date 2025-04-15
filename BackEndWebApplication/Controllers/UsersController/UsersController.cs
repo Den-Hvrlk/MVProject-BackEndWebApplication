@@ -45,6 +45,8 @@ namespace BackEndWebApplication.Controllers.UsersController
 
             return Ok(new
             {
+                Id = data?.ID_User,
+                Roles = data?.Roles,
                 AccessToken = data?.AccessToken,
                 Message = data?.Message,
                 UserName = data?.UserName

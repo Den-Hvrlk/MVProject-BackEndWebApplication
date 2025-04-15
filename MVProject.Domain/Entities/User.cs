@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVProject.API.MVProject.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -23,7 +24,7 @@ public partial class User
 
     public string? Phone { get; set; }
 
-    public char? Sex { get; set; }
+    public string? Sex { get; set; }
 
     public DateOnly? BirthDate { get; set; }
 
@@ -32,6 +33,8 @@ public partial class User
     public virtual ICollection<VolunteerFund> ID_Funds { get; set; } = new List<VolunteerFund>();
 
     public virtual ICollection<MilitaryGroup> ID_Groups { get; set; } = new List<MilitaryGroup>();
+
+    public virtual ICollection<Role> ID_Roles { get; set; } = new List<Role>();
 
     public static User Create(string Email, string UserName, string HashPassword)
     {
