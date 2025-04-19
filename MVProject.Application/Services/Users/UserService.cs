@@ -33,7 +33,7 @@ namespace MVProject.Application.Services.Users
                 passwordHash
             );
 
-            await _userRepository.AddAsync(user);
+            await _userRepository.RegisterUser(user);
             return "Ви успішно зареєстровані!";
         }
 
@@ -78,10 +78,35 @@ namespace MVProject.Application.Services.Users
                 Roles = user.ID_Roles.Select(r => r.ID_Role).ToArray(),
                 Sex = user.Sex,
                 BirthDate = user.BirthDate,
-                Phone = user.Phone,
+                PhoneNumber = user.Phone,
                 AvatarPath = user.UserAvatarPath
             };
         }
 
+        public async Task<string> UpdateUserProfile(User user, UserProfileUpdateRequest userProfile)
+        {
+            var userProfilePatch = new UserProfilePatch
+            {
+                ID_User = userProfile.ID_User,
+                Email = userProfile.Email ?? user.Email,
+                UserName = userProfile.UserName ?? user.UserName,
+                HashPassword = userProfile.HashPassword ?? user.HashPassword,
+                Phone = userProfile.PhoneNumber ?? user.Phone,
+                Sex = userProfile.Sex ?? user.Sex,
+                BirthDate = userProfile.BirthDate ?? user.BirthDate,
+                UserAvatarPath = userProfile.AvatarPath ?? user.UserAvatarPath
+            };
+
+            try
+            {
+                await _userRepository.UpdateUserProfile(userProfilePatch);
+            }
+            catch
+            {
+                return "Помилка при оновленні профілю!";
+            }
+
+            return "Профіль успішно оновлено!";
+        }
     }
 }

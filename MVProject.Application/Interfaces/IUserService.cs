@@ -14,5 +14,6 @@ namespace MVProject.Application.Interfaces
         Task<(bool Success, string? Error, LoginUserResponse? Data)> Login(LoginUserRequest request);
         Task<User?> GetUserByIdAsync(Guid id);
         Task<UserProfileResponse?> GetUserProfileAsync(Guid userId);
+        Task<string> UpdateUserProfile(User user, UserProfileUpdateRequest userProfile);
     }
 }

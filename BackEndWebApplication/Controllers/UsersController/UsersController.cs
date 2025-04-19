@@ -72,5 +72,25 @@ namespace BackEndWebApplication.Controllers.UsersController
 
             return Ok(user);
         }
+
+        [HttpPut("UpdateProfile")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile([FromBody] UserProfileUpdateRequest newUserProfile)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized("Недійсний токен або відсутній ідентифікатор користувача.");
+            }
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null)
+                return NotFound("Користувача не знайдено.");
+
+            var result = await _userService.UpdateUserProfile(user, newUserProfile);
+            if (result == "Помилка при оновленні профілю!")
+                return StatusCode(500, "Виникла помилка при оновленні профілю. Спробуйте пізніше.");
+
+            return Ok(result);
+        }
     }
 }

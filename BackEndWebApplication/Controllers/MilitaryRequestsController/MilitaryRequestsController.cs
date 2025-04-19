@@ -4,7 +4,7 @@ namespace BackEndWebApplication.Controllers.RequestsController
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RequestsController : ControllerBase
+    public class MilitaryRequestsController : ControllerBase
     {
         
     }
