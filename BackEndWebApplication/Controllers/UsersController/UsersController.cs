@@ -77,6 +77,16 @@ namespace BackEndWebApplication.Controllers.UsersController
         [Authorize]
         public async Task<IActionResult> UpdateProfile([FromBody] UserProfileUpdateRequest newUserProfile)
         {
+            Console.Write("Прислані дані профілю " + 
+                newUserProfile.ID_User +
+                newUserProfile.UserName +
+                newUserProfile.Email +
+                newUserProfile.HashPassword +
+                newUserProfile.PhoneNumber +
+                newUserProfile.Sex + 
+                newUserProfile.BirthDate +
+                newUserProfile.AvatarPath);
+
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
             {

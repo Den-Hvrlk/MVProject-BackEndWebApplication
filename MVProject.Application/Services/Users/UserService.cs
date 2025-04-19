@@ -87,7 +87,7 @@ namespace MVProject.Application.Services.Users
         {
             var userProfilePatch = new UserProfilePatch
             {
-                ID_User = userProfile.ID_User,
+                ID_User = user.ID_User,
                 Email = userProfile.Email ?? user.Email,
                 UserName = userProfile.UserName ?? user.UserName,
                 HashPassword = userProfile.HashPassword ?? user.HashPassword,
