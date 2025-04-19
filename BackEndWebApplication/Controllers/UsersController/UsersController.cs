@@ -73,7 +73,7 @@ namespace BackEndWebApplication.Controllers.UsersController
             return Ok(user);
         }
 
-        [HttpPut("UpdateProfile")]
+        [HttpPut("UpdateUserProfile")]
         [Authorize]
         public async Task<IActionResult> UpdateProfile([FromBody] UserProfileUpdateRequest newUserProfile)
         {
