@@ -8,7 +8,6 @@ namespace MVProject.Application.DTOs
 {
     public class UserProfileUpdateRequest
     {
-        public Guid ID_User { get; set; }
         public string? Email { get; set; }
         public string? UserName { get; set; }
         public string? HashPassword { get; set; }
