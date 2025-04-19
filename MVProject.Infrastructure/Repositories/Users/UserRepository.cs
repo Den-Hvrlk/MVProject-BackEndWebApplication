@@ -75,7 +75,7 @@ namespace MVProject.Infrastructure.Repositories.Users
                 new SqlParameter("@ID_User", userProfilePatch.ID_User),
                 new SqlParameter("@Email", (object?)userProfilePatch.Email ?? DBNull.Value),
                 new SqlParameter("@UserName", (object?)userProfilePatch.UserName ?? DBNull.Value),
-                new SqlParameter("@HashPassword", (object?)userProfilePatch.HashPassword ?? DBNull.Value),
+                new SqlParameter("@HashPassword", (object?)userProfilePatch.HashPassword == null || (object?)userProfilePatch.HashPassword == "" ? DBNull.Value : (object?)userProfilePatch.HashPassword),
                 new SqlParameter("@Phone", (object?)userProfilePatch.Phone ?? DBNull.Value),
                 new SqlParameter("@Sex", (object?)userProfilePatch.Sex ?? DBNull.Value),
                 new SqlParameter("@BirthDate", (object?)userProfilePatch.BirthDate ?? DBNull.Value),
