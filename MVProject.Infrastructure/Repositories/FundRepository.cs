@@ -92,5 +92,12 @@ namespace MVProject.Infrastructure.Repositories
                 return "Виникла помилка при відхиленні запиту на створення фонду.";
             }
         }
+
+        public async Task<List<RegisterFundRequest>> GetAllRegisterFundRequests()
+        {
+            return await _context.RegisterFundRequests
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

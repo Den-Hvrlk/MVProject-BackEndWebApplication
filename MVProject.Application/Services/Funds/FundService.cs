@@ -42,4 +42,10 @@ public class FundService : IFundService
         var result = await _fundRepository.RejectFundNotificationRequest(rejectRegister.ID_RegisterFundRequest);
         return result;
     }
+
+    public async Task<List<RegisterFundRequest>> GetAllRegisterFundRequests()
+    {
+        var result = await _fundRepository.GetAllRegisterFundRequests();
+        return result;
+    }
 }

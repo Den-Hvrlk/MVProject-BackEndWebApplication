@@ -88,5 +88,31 @@ namespace BackEndWebApplication.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("Get-requests")]
+        [Authorize]
+        public async Task<IActionResult> GetRequests()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid ID_User = Guid.Empty;
+
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out ID_User))
+            {
+                return Unauthorized("Недійсний токен або відсутній ідентифікатор користувача.");
+            }
+
+            var permissionsCheck = await _userService.GetUserByIdAsync(ID_User);
+            if (!permissionsCheck!.ID_Roles.Any(role => role.ID_Role == 1001))
+            {
+                return Forbid("Недостатньо прав для виконання цієї дії.");
+            }
+
+            var requests = await _fundService.GetAllRegisterFundRequests();
+
+            if (requests == null || requests.Count == 0)
+                return Ok("Запити на реєстрацію фонду не знайдені.");
+
+            return Ok(requests);
+        }
     }
 }
