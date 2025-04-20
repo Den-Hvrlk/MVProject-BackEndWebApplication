@@ -96,6 +96,7 @@ namespace MVProject.Infrastructure.Repositories
         public async Task<List<RegisterFundRequest>> GetAllRegisterFundRequests()
         {
             return await _context.RegisterFundRequests
+                .Where(r => r.RegisterFundRequestStatus == null)
                 .AsNoTracking()
                 .ToListAsync();
         }
