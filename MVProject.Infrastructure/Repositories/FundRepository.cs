@@ -49,14 +49,14 @@ namespace MVProject.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.CodeUSR == code);
         }
 
-        public async Task<string> CreateFundNotificationRequest(RegisterFundRequest registerFundRequest, Guid ID_User)
+        public async Task<string> CreateFundNotificationRequest(RegisterFundRequest registerFundRequest)
         {
             var sql = "EXEC CreateFundRequest @ID_User = {0}, @FundName = {1}, @CodeUSR = {2}, @FundDescription = {3}";
             try
             {
                 await _context.Database.ExecuteSqlRawAsync(
                     sql,
-                    ID_User,
+                    registerFundRequest.ID_User,
                     registerFundRequest.FundName,
                     registerFundRequest.CodeUSR,
                     registerFundRequest.FundDescription ?? null!

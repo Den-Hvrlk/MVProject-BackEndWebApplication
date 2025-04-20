@@ -6,7 +6,7 @@ namespace MVProject.Domain.Interfaces.Funds
     {
         public Task<string> RegisterFund(Guid ID_RegisterFundRequest, Guid ID_User);
         public Task<VolunteerFund?> GetByCodeAsync(string code);
-        public Task<string> CreateFundNotificationRequest(RegisterFundRequest registerFundRequest, Guid ID_User);
+        public Task<string> CreateFundNotificationRequest(RegisterFundRequest registerFundRequest);
         public Task<RegisterFundRequest?> GetRegisterRequestByIdAsync(Guid ID_RegisterFundRequest);
         public Task<string> RejectFundNotificationRequest(Guid ID_RegisterFundRequest);
         public Task<List<RegisterFundRequest>> GetAllRegisterFundRequests();

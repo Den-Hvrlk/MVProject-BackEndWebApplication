@@ -3,13 +3,16 @@ namespace MVProject.Application.Services.Funds;
 using MVProject.Application.DTOs.Fund;
 using MVProject.Domain.Entities;
 using MVProject.Domain.Interfaces.Funds;
+using MVProject.Domain.Interfaces.Users;
 
 public class FundService : IFundService
 {
     private readonly IFundRepository _fundRepository;
-    public FundService(IFundRepository fundRepository)
+    private readonly IUserRepository _userRepository;
+    public FundService(IFundRepository fundRepository, IUserRepository userRepository)
     {
         _fundRepository = fundRepository;
+        _userRepository = userRepository;
     }
     public async Task<string> RegisterFund(ResolveRegisterFundRequest request)
     {
@@ -25,15 +28,18 @@ public class FundService : IFundService
         if (fundExists != null)
             return "Заданий код ЄДРПОУ вже зареєстрований!";
 
+        var user = await _userRepository.GetByIdAsync(ID_User);
 
         var fundRequest = new RegisterFundRequest
         {
+            ID_User = user!.ID_User,
             FundName = request.FundName!,
             CodeUSR = request.CodeUSR!,
-            FundDescription = request.FundDescription
+            FundDescription = request.FundDescription,
+            ID_UserNavigation = user,
         };
 
-        var result = await _fundRepository.CreateFundNotificationRequest(fundRequest, ID_User);
+        var result = await _fundRepository.CreateFundNotificationRequest(fundRequest);
         return result;
     }
 
