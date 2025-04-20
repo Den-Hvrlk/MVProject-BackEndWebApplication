@@ -1,5 +1,7 @@
-﻿using MVProject.Domain.Entities;
-namespace MVProject.API.MVProject.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MVProject.Domain.Entities;
 
 public partial class Role
 {
@@ -7,5 +9,5 @@ public partial class Role
 
     public string RoleName { get; set; } = null!;
 
-    public virtual ICollection<User> ID_User { get; set; } = new List<User>();
+    public virtual ICollection<User> ID_Users { get; set; } = new List<User>();
 }

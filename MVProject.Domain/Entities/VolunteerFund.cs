@@ -9,6 +9,8 @@ public partial class VolunteerFund
 
     public string FundName { get; set; } = null!;
 
+    public string CodeUSR { get; set; } = null!;
+
     public string? FundDescription { get; set; }
 
     public DateOnly? FundCreateDate { get; set; }
@@ -19,9 +21,9 @@ public partial class VolunteerFund
 
     public virtual ICollection<FundImage> FundImages { get; set; } = new List<FundImage>();
 
+    public virtual ICollection<FundMember> FundMembers { get; set; } = new List<FundMember>();
+
     public virtual ICollection<FundProject> FundProjects { get; set; } = new List<FundProject>();
 
     public virtual ICollection<Fundraising> ID_Fundraisings { get; set; } = new List<Fundraising>();
-
-    public virtual ICollection<User> ID_Users { get; set; } = new List<User>();
 }

@@ -1,11 +1,10 @@
 ﻿using MVProject.Domain.Entities;
 using MVProject.Domain.Interfaces.Users;
-using MVProject.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
-using MVProject.Application.DTOs;
 using Microsoft.Data.SqlClient;
+using MVProject.Infrastructure.Db;
 
-namespace MVProject.Infrastructure.Repositories.Users
+namespace MVProject.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -73,8 +72,8 @@ namespace MVProject.Infrastructure.Repositories.Users
             var parameters = new[]
             {
                 new SqlParameter("@ID_User", userProfilePatch.ID_User),
-                new SqlParameter("@Email", (object?)userProfilePatch.Email ?? DBNull.Value),
-                new SqlParameter("@UserName", (object?)userProfilePatch.UserName ?? DBNull.Value),
+                new SqlParameter("@Email", (object?)userProfilePatch.Email == null || (object?)userProfilePatch.Email == "" ? DBNull.Value : (object?)userProfilePatch.Email),
+                new SqlParameter("@UserName", (object?)userProfilePatch.UserName == null || (object?)userProfilePatch.UserName == "" ? DBNull.Value : (object?)userProfilePatch.UserName),
                 new SqlParameter("@HashPassword", (object?)userProfilePatch.HashPassword == null || (object?)userProfilePatch.HashPassword == "" ? DBNull.Value : (object?)userProfilePatch.HashPassword),
                 new SqlParameter("@Phone", (object?)userProfilePatch.Phone ?? DBNull.Value),
                 new SqlParameter("@Sex", (object?)userProfilePatch.Sex ?? DBNull.Value),

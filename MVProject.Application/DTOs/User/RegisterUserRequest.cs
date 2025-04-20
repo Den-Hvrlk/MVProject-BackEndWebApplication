@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MVProject.Application.DTOs;
+namespace MVProject.Application.DTOs.User;
 
 public record RegisterUserRequest
 (

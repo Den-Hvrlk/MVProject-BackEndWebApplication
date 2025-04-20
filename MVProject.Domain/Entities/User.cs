@@ -1,19 +1,10 @@
-﻿using MVProject.API.MVProject.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace MVProject.Domain.Entities;
 
 public partial class User
 {
-    private User(string email, string userName, string hashPassword)
-    {
-        Email = email;
-        UserName = userName;
-        HashPassword = hashPassword;
-    }
-
     public Guid ID_User { get; set; }
 
     public string Email { get; set; } = null!;
@@ -30,14 +21,13 @@ public partial class User
 
     public string? UserAvatarPath { get; set; }
 
-    public virtual ICollection<VolunteerFund> ID_Funds { get; set; } = new List<VolunteerFund>();
+    public virtual ICollection<FundMember> FundMembers { get; set; } = new List<FundMember>();
 
-    public virtual ICollection<MilitaryGroup> ID_Groups { get; set; } = new List<MilitaryGroup>();
+    public virtual ICollection<MilitaryGrpMember> MilitaryGrpMembers { get; set; } = new List<MilitaryGrpMember>();
+
+    public virtual ICollection<RegisterFundRequest> RegisterFundRequests { get; set; } = new List<RegisterFundRequest>();
+
+    public virtual ICollection<RegisterGroupRequest> RegisterGroupRequests { get; set; } = new List<RegisterGroupRequest>();
 
     public virtual ICollection<Role> ID_Roles { get; set; } = new List<Role>();
-
-    public static User Create(string Email, string UserName, string HashPassword)
-    {
-        return new User(Email, UserName, HashPassword);
-    }
 }

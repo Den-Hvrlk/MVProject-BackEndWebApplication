@@ -1,8 +1,8 @@
-﻿using MVProject.Application.DTOs;
-using MVProject.Application.Interfaces;
+﻿using MVProject.Application.Interfaces;
 using MVProject.Domain.Interfaces.Users;
 using MVProject.Domain.Entities;
 using MVProject.Application.Interfaces.Auth;
+using MVProject.Application.DTOs.User;
 
 namespace MVProject.Application.Services.Users
 {
@@ -27,11 +27,12 @@ namespace MVProject.Application.Services.Users
 
             var passwordHash = _passwordHasher.HashPassword(request.Password);
 
-            var user = User.Create(
-                request.Email,
-                request.UserName,
-                passwordHash
-            );
+            var user = new User 
+            { 
+                Email = request.Email,
+                UserName = request.UserName,
+                HashPassword = passwordHash 
+            };
 
             await _userRepository.RegisterUser(user);
             return "Ви успішно зареєстровані!";

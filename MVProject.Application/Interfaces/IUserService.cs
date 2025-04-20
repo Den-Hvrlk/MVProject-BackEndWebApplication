@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVProject.Application.DTOs;
+using MVProject.Application.DTOs.User;
 using MVProject.Domain.Entities;
 
 namespace MVProject.Application.Interfaces

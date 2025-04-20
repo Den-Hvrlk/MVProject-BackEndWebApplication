@@ -1,8 +1,8 @@
-﻿using MVProject.Application.DTOs;
-using MVProject.Application.Interfaces;
+﻿using MVProject.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using MVProject.Application.DTOs.User;
 
 namespace BackEndWebApplication.Controllers.UsersController
 {

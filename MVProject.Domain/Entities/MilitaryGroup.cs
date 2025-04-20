@@ -17,7 +17,7 @@ public partial class MilitaryGroup
 
     public virtual ICollection<GroupImage> GroupImages { get; set; } = new List<GroupImage>();
 
-    public virtual ICollection<MilitaryRequest> MilitaryRequests { get; set; } = new List<MilitaryRequest>();
+    public virtual ICollection<MilitaryGrpMember> MilitaryGrpMembers { get; set; } = new List<MilitaryGrpMember>();
 
-    public virtual ICollection<User> ID_Users { get; set; } = new List<User>();
+    public virtual ICollection<MilitaryRequest> MilitaryRequests { get; set; } = new List<MilitaryRequest>();
 }

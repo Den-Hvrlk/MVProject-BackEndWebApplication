@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVProject.Application.DTOs
+namespace MVProject.Application.DTOs.User
 {
     public class UserProfileUpdateRequest
     {
