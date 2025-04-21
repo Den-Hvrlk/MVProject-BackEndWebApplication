@@ -22,7 +22,7 @@ namespace BackEndWebApplication.Controllers
 
         [HttpPost("Resolve-register/{id}")]
         [Authorize]
-        public async Task<IActionResult> ResolveRegister([FromRoute] Guid ID_RegisterFundRequest)
+        public async Task<IActionResult> ResolveRegister([FromRoute] Guid id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid ID_User = Guid.Empty;
@@ -38,13 +38,13 @@ namespace BackEndWebApplication.Controllers
                 return StatusCode(403, "Недостатньо прав для виконання цієї дії.");
             }
 
-            var result = await _fundService.RegisterFund(ID_RegisterFundRequest);
+            var result = await _fundService.RegisterFund(id);
             return Ok(result);
         }
 
         [HttpPut("Reject-register/{id}")]
         [Authorize]
-        public async Task<IActionResult> RejectRegister([FromRoute] Guid ID_RegisterFundRequest)
+        public async Task<IActionResult> RejectRegister([FromRoute] Guid id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid ID_User = Guid.Empty;
@@ -60,7 +60,7 @@ namespace BackEndWebApplication.Controllers
                 return Forbid("Недостатньо прав для виконання цієї дії.");
             }
 
-            var result = await _fundService.RejectRegisterFund(ID_RegisterFundRequest);
+            var result = await _fundService.RejectRegisterFund(id);
             if(result == "Виникла помилка при відхиленні запиту на створення фонду.")
                 return StatusCode(500, result);
 
