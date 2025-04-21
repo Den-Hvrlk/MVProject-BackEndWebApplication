@@ -5,7 +5,7 @@ namespace MVProject.Application.Interfaces
 {
     public interface IFundService
     {
-        Task<string> RegisterFund(ResolveRegisterFundRequest volunteerFund);
+        Task<string> RegisterFund(Guid ID_RegisterFundRequest);
         Task<string> CreateFundNotificationRequest(CreateFundNotificationRequest createFundRequest, Guid ID_User);
         Task<string> RejectRegisterFund(Guid ID_RegisterFundRequest);
         Task<List<RegisterFundRequestDto>> GetAllRegisterFundRequests();

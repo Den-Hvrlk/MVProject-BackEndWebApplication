@@ -14,11 +14,11 @@ public class FundService : IFundService
         _fundRepository = fundRepository;
         _userRepository = userRepository;
     }
-    public async Task<string> RegisterFund(ResolveRegisterFundRequest request)
+    public async Task<string> RegisterFund(Guid ID_RegisterFundRequest)
     {
-        var registerFundRequest = await _fundRepository.GetRegisterRequestByIdAsync(request.ID_RegisterFundRequest);
+        var registerFundRequest = await _fundRepository.GetRegisterRequestByIdAsync(ID_RegisterFundRequest);
 
-        await _fundRepository.RegisterFund(request.ID_RegisterFundRequest, registerFundRequest!.ID_User);
+        await _fundRepository.RegisterFund(ID_RegisterFundRequest, registerFundRequest!.ID_User);
         return "Фонд успішно зареєстровано!";
     }
 

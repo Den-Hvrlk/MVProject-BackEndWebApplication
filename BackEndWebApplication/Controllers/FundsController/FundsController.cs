@@ -20,9 +20,9 @@ namespace BackEndWebApplication.Controllers
             _userService = userService;
         }
 
-        [HttpPost("Resolve-register")]
+        [HttpPost("Resolve-register/{id}")]
         [Authorize]
-        public async Task<IActionResult> ResolveRegister([FromBody] ResolveRegisterFundRequest newVolunteerFund)
+        public async Task<IActionResult> ResolveRegister([FromRoute] Guid ID_RegisterFundRequest)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid ID_User = Guid.Empty;
@@ -38,7 +38,7 @@ namespace BackEndWebApplication.Controllers
                 return StatusCode(403, "Недостатньо прав для виконання цієї дії.");
             }
 
-            var result = await _fundService.RegisterFund(newVolunteerFund);
+            var result = await _fundService.RegisterFund(ID_RegisterFundRequest);
             return Ok(result);
         }
 
