@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MVProject.Application.DTOs.Fund;
 using MVProject.Domain.Entities;
 using MVProject.Domain.Interfaces.Funds;
 using MVProject.Infrastructure.Db;
@@ -97,6 +98,7 @@ namespace MVProject.Infrastructure.Repositories
         {
             return await _context.RegisterFundRequests
                 .Where(r => r.RegisterFundRequestStatus == null)
+                .Include(r => r.ID_UserNavigation)
                 .AsNoTracking()
                 .ToListAsync();
         }

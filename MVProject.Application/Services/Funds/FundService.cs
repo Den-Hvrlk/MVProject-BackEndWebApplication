@@ -49,9 +49,20 @@ public class FundService : IFundService
         return result;
     }
 
-    public async Task<List<RegisterFundRequest>> GetAllRegisterFundRequests()
+    public async Task<List<RegisterFundRequestDto>> GetAllRegisterFundRequests()
     {
-        var result = await _fundRepository.GetAllRegisterFundRequests();
-        return result;
+        var entities = await _fundRepository.GetAllRegisterFundRequests(); // EF уже сработал в репозитории
+
+        return entities.Select(r => new RegisterFundRequestDto
+        {
+            ID_RegisterFundRequest = r.ID_RegisterFundRequest,
+            ID_User = r.ID_User,
+            FundName = r.FundName,
+            CodeUSR = r.CodeUSR,
+            FundDescription = r.FundDescription!,
+            RegisterFundRequestDate = r.RegisterFundRequestDate,
+            RegisterFundRequestStatus = r.RegisterFundRequestStatus,
+            UserName = r.ID_UserNavigation?.UserName ?? "—"
+        }).ToList();
     }
 }
