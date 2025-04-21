@@ -42,9 +42,9 @@ namespace BackEndWebApplication.Controllers
             return Ok(result);
         }
 
-        [HttpPut("Reject-register")]
+        [HttpPut("Reject-register/{id}")]
         [Authorize]
-        public async Task<IActionResult> RejectRegister([FromBody] RejectRegisterFundRequest rejectRegister)
+        public async Task<IActionResult> RejectRegister([FromRoute] Guid ID_RegisterFundRequest)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid ID_User = Guid.Empty;
@@ -60,7 +60,7 @@ namespace BackEndWebApplication.Controllers
                 return Forbid("Недостатньо прав для виконання цієї дії.");
             }
 
-            var result = await _fundService.RejectRegisterFund(rejectRegister);
+            var result = await _fundService.RejectRegisterFund(ID_RegisterFundRequest);
             if(result == "Виникла помилка при відхиленні запиту на створення фонду.")
                 return StatusCode(500, result);
 

@@ -43,9 +43,9 @@ public class FundService : IFundService
         return result;
     }
 
-    public async Task<string> RejectRegisterFund(RejectRegisterFundRequest rejectRegister)
+    public async Task<string> RejectRegisterFund(Guid ID_RegisterFundRequest)
     {
-        var result = await _fundRepository.RejectFundNotificationRequest(rejectRegister.ID_RegisterFundRequest);
+        var result = await _fundRepository.RejectFundNotificationRequest(ID_RegisterFundRequest);
         return result;
     }
 
