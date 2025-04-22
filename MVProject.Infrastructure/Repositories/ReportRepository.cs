@@ -135,13 +135,31 @@ namespace MVProject.Infrastructure.Repositories
         {
             return await _context.GroupReports.FirstOrDefaultAsync(r => r.ID_GroupReport == ID_GroupReport);
         }
-        public async Task<List<FundReport>> ListFundReportsAsync()
+        public async Task<List<object>> ListFundReportsAsync()
         {
-            return await _context.FundReports.OrderByDescending(r => r.Period).ToListAsync();
+            var result = await (from report in _context.FundReports
+                                join fund in _context.VolunteerFunds
+                                    on report.ID_Fund equals fund.ID_Fund
+                                select new
+                                {
+                                    Report = report,
+                                    FundName = fund.FundName
+                                }).ToListAsync();
+
+            return result.Cast<object>().ToList();
         }
-        public async Task<List<GroupReport>> ListGroupReportsAsync()
+        public async Task<List<object>> ListGroupReportsAsync()
         {
-            return await _context.GroupReports.OrderByDescending(r => r.Period).ToListAsync();
+            var result = await (from report in _context.GroupReports
+                                join militarygroup in _context.MilitaryGroups
+                                    on report.ID_Group equals militarygroup.ID_Group
+                                select new
+                                {
+                                    Report = report,
+                                    Group = militarygroup.GroupName
+                                }).ToListAsync();
+
+            return result.Cast<object>().ToList();
         }
     }
 }

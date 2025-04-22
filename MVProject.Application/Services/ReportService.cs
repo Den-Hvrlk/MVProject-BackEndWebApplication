@@ -43,14 +43,41 @@ namespace MVProject.Application.Services
             return await _reportRepository.GetGroupReportAsync(ID_GroupReport);
         }
 
-        public async Task<List<FundReport>> ListFundReportsAsync()
+        public async Task<List<FundReportDto>> ListFundReportsAsync()
         {
-            return await _reportRepository.ListFundReportsAsync();
+            var raw = await _reportRepository.ListFundReportsAsync();
+            var result = raw.Cast<dynamic>();
+
+            return result.Select(x => new FundReportDto
+            {
+                ID_FundReport = x.Report.ID_FundReport,
+                FundName = x.FundName,
+                Period = x.Report.Period,
+                CompletedRequestsCount = x.Report.CompletedRequestsCount,
+                CompletedFundraisingCount = x.Report.CompletedFundraisingCount,
+                TotalGoals = x.Report.TotalGoals,
+                TotalRaised = x.Report.TotalRaised
+            }).ToList();
         }
 
-        public async Task<List<GroupReport>> ListGroupReportsAsync()
+        public async Task<List<GroupReportDto>> ListGroupReportsAsync()
         {
-            return await _reportRepository.ListGroupReportsAsync();
+            var raw = await _reportRepository.ListGroupReportsAsync();
+            var result = raw.Cast<dynamic>();
+
+            return result.Select(x => new GroupReportDto
+            {
+                ID_GroupReport = x.Report.ID_GroupReport,
+                GroupName = x.GroupName,
+                Period = x.Report.Period,
+                FundraisingCount = x.Report.FundraisingCount,
+                ClosedFundraisingCount = x.Report.ClosedFundraisingCount,
+                GoalToBeRecieved = x.Report.GoalToBeRecieved,
+                FundsReceived = x.Report.FundsReceived,
+                AllRequestCount = x.Report.AllRequestCount,
+                CompletedRequestCount = x.Report.CompletedRequestCount,
+                IncompleteRequestCount = x.Report.IncompleteRequestCount
+            }).ToList();
         }
     }
 }

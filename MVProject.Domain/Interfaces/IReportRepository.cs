@@ -8,7 +8,7 @@ namespace MVProject.Domain.Interfaces
         Task<GroupReport> GenerateGroupReportAsync(GroupReport groupReport);
         Task<FundReport?> GetFundReportAsync(Guid ID_FundReport);
         Task<GroupReport?> GetGroupReportAsync(Guid ID_GroupReport);
-        Task<List<FundReport>> ListFundReportsAsync();
-        Task<List<GroupReport>> ListGroupReportsAsync();
+        Task<List<object>> ListFundReportsAsync();
+        Task<List<object>> ListGroupReportsAsync();
     }
 }

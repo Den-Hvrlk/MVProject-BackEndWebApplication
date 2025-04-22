@@ -14,7 +14,7 @@ namespace MVProject.Application.Interfaces
         Task<GroupReport> GenerateGroupReportAsync(GroupReportRequest groupReportRequest);
         Task<FundReport?> GetFundReportAsync(Guid ID_FundReport);
         Task<GroupReport?> GetGroupReportAsync(Guid ID_GroupReport);
-        Task<List<FundReport>> ListFundReportsAsync();
-        Task<List<GroupReport>> ListGroupReportsAsync();
+        Task<List<FundReportDto>> ListFundReportsAsync();
+        Task<List<GroupReportDto>> ListGroupReportsAsync();
     }
 }
