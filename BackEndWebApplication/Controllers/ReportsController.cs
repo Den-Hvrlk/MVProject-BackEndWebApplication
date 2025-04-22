@@ -58,18 +58,19 @@ namespace MVProject.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("fund-reports")]
-        public async Task<IActionResult> ListFundsReports()
+        [HttpGet]
+        public async Task<IActionResult> ListReports()
         {
-            var result = await _reportService.ListFundReportsAsync();
-            return Ok(result);
-        }
+            var fundReports = await _reportService.ListFundReportsAsync();
+            var groupReports = await _reportService.ListGroupReportsAsync();
 
-        [HttpGet("group-reports")]
-        public async Task<IActionResult> ListGroupsReports()
-        {
-            var result = await _reportService.ListGroupReportsAsync();
-            return Ok(result);
+            var response = new ReportsResponse
+            {
+                FundReports = fundReports,
+                GroupReports = groupReports
+            };
+
+            return Ok(response);
         }
     }
 }
