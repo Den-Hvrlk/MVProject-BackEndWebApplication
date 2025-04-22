@@ -1,10 +1,10 @@
 ﻿using MVProject.Application.Interfaces;
-using MVProject.Domain.Interfaces.Users;
 using MVProject.Domain.Entities;
 using MVProject.Application.Interfaces.Auth;
 using MVProject.Application.DTOs.User;
+using MVProject.Domain.Interfaces;
 
-namespace MVProject.Application.Services.Users
+namespace MVProject.Application.Services
 {
     public class UserService : IUserService
     {

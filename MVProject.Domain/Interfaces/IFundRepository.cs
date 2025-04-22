@@ -1,6 +1,6 @@
 ﻿using MVProject.Domain.Entities;
 
-namespace MVProject.Domain.Interfaces.Funds
+namespace MVProject.Domain.Interfaces
 {
     public interface IFundRepository
     {

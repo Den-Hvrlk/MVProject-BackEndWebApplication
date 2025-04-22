@@ -25,5 +25,7 @@ public partial class VolunteerFund
 
     public virtual ICollection<FundProject> FundProjects { get; set; } = new List<FundProject>();
 
+    public virtual ICollection<FundReport> FundReports { get; set; } = new List<FundReport>();
+
     public virtual ICollection<Fundraising> ID_Fundraisings { get; set; } = new List<Fundraising>();
 }

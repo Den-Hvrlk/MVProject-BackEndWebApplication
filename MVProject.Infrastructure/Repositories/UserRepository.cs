@@ -1,8 +1,8 @@
 ﻿using MVProject.Domain.Entities;
-using MVProject.Domain.Interfaces.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using MVProject.Infrastructure.Db;
+using MVProject.Domain.Interfaces;
 
 namespace MVProject.Infrastructure.Repositories
 {

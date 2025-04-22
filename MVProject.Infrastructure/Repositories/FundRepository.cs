@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MVProject.Application.DTOs.Fund;
 using MVProject.Domain.Entities;
-using MVProject.Domain.Interfaces.Funds;
+using MVProject.Domain.Interfaces;
 using MVProject.Infrastructure.Db;
 
 namespace MVProject.Infrastructure.Repositories

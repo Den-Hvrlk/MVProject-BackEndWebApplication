@@ -5,7 +5,7 @@ using MVProject.Application.DTOs.Fund;
 using System.Security.Claims;
 
 
-namespace BackEndWebApplication.Controllers
+namespace MVProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

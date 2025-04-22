@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using MVProject.Domain.Entities.Views;
 using MVProject.Domain.Entities;
+using MVProject.Domain.Entities.Views;
 
 namespace MVProject.Infrastructure.Db;
 
@@ -31,9 +31,13 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<FundProjectImage> FundProjectImages { get; set; }
 
+    public virtual DbSet<FundReport> FundReports { get; set; }
+
     public virtual DbSet<Fundraising> Fundraisings { get; set; }
 
     public virtual DbSet<GroupImage> GroupImages { get; set; }
+
+    public virtual DbSet<GroupReport> GroupReports { get; set; }
 
     public virtual DbSet<ListOfActiveFundraising> ListOfActiveFundraisings { get; set; }
 
@@ -45,6 +49,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<ListOfCompleteRequest> ListOfCompleteRequests { get; set; }
 
+    public virtual DbSet<ListOfFundrWithGroup> ListOfFundrWithGroups { get; set; }
+
     public virtual DbSet<MilitaryGroup> MilitaryGroups { get; set; }
 
     public virtual DbSet<MilitaryGrpMember> MilitaryGrpMembers { get; set; }
@@ -54,6 +60,14 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<RegisterFundRequest> RegisterFundRequests { get; set; }
 
     public virtual DbSet<RegisterGroupRequest> RegisterGroupRequests { get; set; }
+
+    public virtual DbSet<ReportForCompletedRequestsByFund> ReportForCompletedRequestsByFunds { get; set; }
+
+    public virtual DbSet<ReportForFundRecievedFund> ReportForFundRecievedFunds { get; set; }
+
+    public virtual DbSet<ReportForGroupRecievedFund> ReportForGroupRecievedFunds { get; set; }
+
+    public virtual DbSet<ReportForGroupRequest> ReportForGroupRequests { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -65,7 +79,7 @@ public partial class AppDbContext : DbContext
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.ID_Category).HasName("PK__Category__6DB3A68AA51DEC14");
+            entity.HasKey(e => e.ID_Category).HasName("PK__Category__6DB3A68AD392C929");
 
             entity.ToTable("Category");
 
@@ -78,7 +92,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<CompleteFundraising>(entity =>
         {
-            entity.HasKey(e => new { e.ID_Fundraising, e.ID_Fund }).HasName("PK__Complete__05137806DB31F012");
+            entity.HasKey(e => new { e.ID_Fundraising, e.ID_Fund }).HasName("PK__Complete__051378063EABC5D8");
 
             entity.ToTable("CompleteFundraising");
 
@@ -87,16 +101,16 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.CompleteFundraisings)
                 .HasForeignKey(d => d.ID_Fund)
-                .HasConstraintName("FK__CompleteF__ID_Fu__1486F2C8");
+                .HasConstraintName("FK__CompleteF__ID_Fu__28ADE706");
 
             entity.HasOne(d => d.ID_FundraisingNavigation).WithMany(p => p.CompleteFundraisings)
                 .HasForeignKey(d => d.ID_Fundraising)
-                .HasConstraintName("FK__CompleteF__ID_Fu__1392CE8F");
+                .HasConstraintName("FK__CompleteF__ID_Fu__27B9C2CD");
         });
 
         modelBuilder.Entity<CompleteRequest>(entity =>
         {
-            entity.HasKey(e => new { e.ID_Request, e.ID_Fund }).HasName("PK__Complete__24CC03652905CE54");
+            entity.HasKey(e => new { e.ID_Request, e.ID_Fund }).HasName("PK__Complete__24CC0365B3A623D2");
 
             entity.ToTable("CompleteRequest");
 
@@ -104,16 +118,16 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.CompleteRequests)
                 .HasForeignKey(d => d.ID_Fund)
-                .HasConstraintName("FK__CompleteR__ID_Fu__194BA7E5");
+                .HasConstraintName("FK__CompleteR__ID_Fu__2D729C23");
 
             entity.HasOne(d => d.ID_RequestNavigation).WithMany(p => p.CompleteRequests)
                 .HasForeignKey(d => d.ID_Request)
-                .HasConstraintName("FK__CompleteR__ID_Re__185783AC");
+                .HasConstraintName("FK__CompleteR__ID_Re__2C7E77EA");
         });
 
         modelBuilder.Entity<FundImage>(entity =>
         {
-            entity.HasKey(e => new { e.ID_Image, e.ID_Fund }).HasName("PK__FundImag__C078C1CFE76F35E1");
+            entity.HasKey(e => new { e.ID_Image, e.ID_Fund }).HasName("PK__FundImag__C078C1CFD749224B");
 
             entity.ToTable("FundImage");
 
@@ -125,27 +139,27 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.FundImages)
                 .HasForeignKey(d => d.ID_Fund)
-                .HasConstraintName("FK__FundImage__ID_Fu__68A8708A");
+                .HasConstraintName("FK__FundImage__ID_Fu__7CCF64C8");
         });
 
         modelBuilder.Entity<FundMember>(entity =>
         {
-            entity.HasKey(e => new { e.ID_User, e.ID_Fund }).HasName("PK__FundMemb__1CD17FA743701EAD");
+            entity.HasKey(e => new { e.ID_User, e.ID_Fund }).HasName("PK__FundMemb__1CD17FA727E28572");
 
             entity.ToTable("FundMember");
 
             entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.FundMembers)
                 .HasForeignKey(d => d.ID_Fund)
-                .HasConstraintName("FK__FundMembe__ID_Fu__6D6D25A7");
+                .HasConstraintName("FK__FundMembe__ID_Fu__019419E5");
 
             entity.HasOne(d => d.ID_UserNavigation).WithMany(p => p.FundMembers)
                 .HasForeignKey(d => d.ID_User)
-                .HasConstraintName("FK__FundMembe__ID_Us__6C79016E");
+                .HasConstraintName("FK__FundMembe__ID_Us__009FF5AC");
         });
 
         modelBuilder.Entity<FundProject>(entity =>
         {
-            entity.HasKey(e => e.ID_Project).HasName("PK__FundProj__D310AEBFABEDC3D8");
+            entity.HasKey(e => e.ID_Project).HasName("PK__FundProj__D310AEBFBCEFEAA3");
 
             entity.ToTable("FundProject");
 
@@ -156,12 +170,12 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.FundProjects)
                 .HasForeignKey(d => d.ID_Fund)
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__FundProje__ID_Fu__7BBB44FE");
+                .HasConstraintName("FK__FundProje__ID_Fu__0FE2393C");
         });
 
         modelBuilder.Entity<FundProjectImage>(entity =>
         {
-            entity.HasKey(e => new { e.ID_Image, e.ID_Project }).HasName("PK__FundProj__DCD550C1297D01FD");
+            entity.HasKey(e => new { e.ID_Image, e.ID_Project }).HasName("PK__FundProj__DCD550C1A56A4152");
 
             entity.ToTable("FundProjectImage");
 
@@ -173,12 +187,28 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_ProjectNavigation).WithMany(p => p.FundProjectImages)
                 .HasForeignKey(d => d.ID_Project)
-                .HasConstraintName("FK__FundProje__ID_Pr__7E97B1A9");
+                .HasConstraintName("FK__FundProje__ID_Pr__12BEA5E7");
+        });
+
+        modelBuilder.Entity<FundReport>(entity =>
+        {
+            entity.HasKey(e => e.ID_FundReport).HasName("PK__FundRepo__2E6DCF00A5041C74");
+
+            entity.ToTable("FundReport");
+
+            entity.Property(e => e.ID_FundReport).ValueGeneratedNever();
+            entity.Property(e => e.TotalGoals).HasColumnType("money");
+            entity.Property(e => e.TotalRaised).HasColumnType("money");
+
+            entity.HasOne(d => d.ID_FundNavigation).WithMany(p => p.FundReports)
+                .HasForeignKey(d => d.ID_Fund)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__FundRepor__ID_Fu__341F99B2");
         });
 
         modelBuilder.Entity<Fundraising>(entity =>
         {
-            entity.HasKey(e => e.ID_Fundraising).HasName("PK__Fundrais__F48FE3E3C11F4043");
+            entity.HasKey(e => e.ID_Fundraising).HasName("PK__Fundrais__F48FE3E35CA9F515");
 
             entity.ToTable("Fundraising");
 
@@ -190,20 +220,20 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_GroupNavigation).WithMany(p => p.Fundraisings)
                 .HasForeignKey(d => d.ID_Group)
-                .HasConstraintName("FK__Fundraisi__ID_Gr__0BF1ACC7");
+                .HasConstraintName("FK__Fundraisi__ID_Gr__2018A105");
 
             entity.HasMany(d => d.ID_Categories).WithMany(p => p.ID_Fundraisings)
                 .UsingEntity<Dictionary<string, object>>(
                     "FundraisingCategory",
                     r => r.HasOne<Category>().WithMany()
                         .HasForeignKey("ID_Category")
-                        .HasConstraintName("FK__Fundraisi__ID_Ca__0FC23DAB"),
+                        .HasConstraintName("FK__Fundraisi__ID_Ca__23E931E9"),
                     l => l.HasOne<Fundraising>().WithMany()
                         .HasForeignKey("ID_Fundraising")
-                        .HasConstraintName("FK__Fundraisi__ID_Fu__0ECE1972"),
+                        .HasConstraintName("FK__Fundraisi__ID_Fu__22F50DB0"),
                     j =>
                     {
-                        j.HasKey("ID_Fundraising", "ID_Category").HasName("PK__Fundrais__4254D98B5B344AA8");
+                        j.HasKey("ID_Fundraising", "ID_Category").HasName("PK__Fundrais__4254D98B30D05723");
                         j.ToTable("FundraisingCategory");
                         j.IndexerProperty<string>("ID_Category")
                             .HasMaxLength(6)
@@ -216,20 +246,20 @@ public partial class AppDbContext : DbContext
                     "FundraisingSponsor",
                     r => r.HasOne<VolunteerFund>().WithMany()
                         .HasForeignKey("ID_Fund")
-                        .HasConstraintName("FK__Fundraisi__ID_Fu__1D1C38C9"),
+                        .HasConstraintName("FK__Fundraisi__ID_Fu__31432D07"),
                     l => l.HasOne<Fundraising>().WithMany()
                         .HasForeignKey("ID_Fundraising")
-                        .HasConstraintName("FK__Fundraisi__ID_Fu__1C281490"),
+                        .HasConstraintName("FK__Fundraisi__ID_Fu__304F08CE"),
                     j =>
                     {
-                        j.HasKey("ID_Fundraising", "ID_Fund").HasName("PK__Fundrais__051378067CCA41BF");
+                        j.HasKey("ID_Fundraising", "ID_Fund").HasName("PK__Fundrais__05137806EAB73976");
                         j.ToTable("FundraisingSponsor");
                     });
         });
 
         modelBuilder.Entity<GroupImage>(entity =>
         {
-            entity.HasKey(e => new { e.ID_Image, e.ID_Group }).HasName("PK__GroupIma__A8857FF734918B15");
+            entity.HasKey(e => new { e.ID_Image, e.ID_Group }).HasName("PK__GroupIma__A8857FF71C1A3CFF");
 
             entity.ToTable("GroupImage");
 
@@ -241,7 +271,23 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_GroupNavigation).WithMany(p => p.GroupImages)
                 .HasForeignKey(d => d.ID_Group)
-                .HasConstraintName("FK__GroupImag__ID_Gr__7325FEFD");
+                .HasConstraintName("FK__GroupImag__ID_Gr__074CF33B");
+        });
+
+        modelBuilder.Entity<GroupReport>(entity =>
+        {
+            entity.HasKey(e => e.ID_GroupReport).HasName("PK__GroupRep__F29BC1DB2AE42A9F");
+
+            entity.ToTable("GroupReport");
+
+            entity.Property(e => e.ID_GroupReport).ValueGeneratedNever();
+            entity.Property(e => e.FundsReceived).HasColumnType("money");
+            entity.Property(e => e.GoalToBeRecieved).HasColumnType("money");
+
+            entity.HasOne(d => d.ID_GroupNavigation).WithMany(p => p.GroupReports)
+                .HasForeignKey(d => d.ID_Group)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__GroupRepo__ID_Gr__36FC065D");
         });
 
         modelBuilder.Entity<ListOfActiveFundraising>(entity =>
@@ -294,9 +340,19 @@ public partial class AppDbContext : DbContext
                 .ToView("ListOfCompleteRequest");
         });
 
+        modelBuilder.Entity<ListOfFundrWithGroup>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ListOfFundrWithGroup");
+
+            entity.Property(e => e.FundrGoal).HasColumnType("money");
+            entity.Property(e => e.FundsRaised).HasColumnType("money");
+        });
+
         modelBuilder.Entity<MilitaryGroup>(entity =>
         {
-            entity.HasKey(e => e.ID_Group).HasName("PK__Military__96125DD8CF344951");
+            entity.HasKey(e => e.ID_Group).HasName("PK__Military__96125DD864881FB3");
 
             entity.ToTable("MilitaryGroup");
 
@@ -307,22 +363,22 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<MilitaryGrpMember>(entity =>
         {
-            entity.HasKey(e => new { e.ID_User, e.ID_Group }).HasName("PK__Military__742CC19FF368E919");
+            entity.HasKey(e => new { e.ID_User, e.ID_Group }).HasName("PK__Military__742CC19FF00E9F4C");
 
             entity.ToTable("MilitaryGrpMember");
 
             entity.HasOne(d => d.ID_GroupNavigation).WithMany(p => p.MilitaryGrpMembers)
                 .HasForeignKey(d => d.ID_Group)
-                .HasConstraintName("FK__MilitaryG__ID_Gr__77EAB41A");
+                .HasConstraintName("FK__MilitaryG__ID_Gr__0C11A858");
 
             entity.HasOne(d => d.ID_UserNavigation).WithMany(p => p.MilitaryGrpMembers)
                 .HasForeignKey(d => d.ID_User)
-                .HasConstraintName("FK__MilitaryG__ID_Us__76F68FE1");
+                .HasConstraintName("FK__MilitaryG__ID_Us__0B1D841F");
         });
 
         modelBuilder.Entity<MilitaryRequest>(entity =>
         {
-            entity.HasKey(e => e.ID_Request).HasName("PK__Military__D5509880153A23E9");
+            entity.HasKey(e => e.ID_Request).HasName("PK__Military__D55098804E137FA2");
 
             entity.ToTable("MilitaryRequest");
 
@@ -333,20 +389,20 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_GroupNavigation).WithMany(p => p.MilitaryRequests)
                 .HasForeignKey(d => d.ID_Group)
-                .HasConstraintName("FK__MilitaryR__ID_Gr__0268428D");
+                .HasConstraintName("FK__MilitaryR__ID_Gr__168F36CB");
 
             entity.HasMany(d => d.ID_Categories).WithMany(p => p.ID_Requests)
                 .UsingEntity<Dictionary<string, object>>(
                     "RequestCategory",
                     r => r.HasOne<Category>().WithMany()
                         .HasForeignKey("ID_Category")
-                        .HasConstraintName("FK__RequestCa__ID_Ca__08211BE3"),
+                        .HasConstraintName("FK__RequestCa__ID_Ca__1C481021"),
                     l => l.HasOne<MilitaryRequest>().WithMany()
                         .HasForeignKey("ID_Request")
-                        .HasConstraintName("FK__RequestCa__ID_Re__072CF7AA"),
+                        .HasConstraintName("FK__RequestCa__ID_Re__1B53EBE8"),
                     j =>
                     {
-                        j.HasKey("ID_Request", "ID_Category").HasName("PK__RequestC__638BA2E8167D4A97");
+                        j.HasKey("ID_Request", "ID_Category").HasName("PK__RequestC__638BA2E84A2ED522");
                         j.ToTable("RequestCategory");
                         j.IndexerProperty<string>("ID_Category")
                             .HasMaxLength(6)
@@ -357,7 +413,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<RegisterFundRequest>(entity =>
         {
-            entity.HasKey(e => e.ID_RegisterFundRequest).HasName("PK__Register__B5AB7372AB8C9D2B");
+            entity.HasKey(e => e.ID_RegisterFundRequest).HasName("PK__Register__B5AB7372E2BB9EAA");
 
             entity.ToTable("RegisterFundRequest");
 
@@ -372,12 +428,12 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_UserNavigation).WithMany(p => p.RegisterFundRequests)
                 .HasForeignKey(d => d.ID_User)
-                .HasConstraintName("FK__RegisterF__ID_Us__5D36BDDE");
+                .HasConstraintName("FK__RegisterF__ID_Us__715DB21C");
         });
 
         modelBuilder.Entity<RegisterGroupRequest>(entity =>
         {
-            entity.HasKey(e => e.ID_RegisterGroupRequest).HasName("PK__Register__C9BB981AC42E3C8E");
+            entity.HasKey(e => e.ID_RegisterGroupRequest).HasName("PK__Register__C9BB981A675C5BF0");
 
             entity.ToTable("RegisterGroupRequest");
 
@@ -388,16 +444,50 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.ID_UserNavigation).WithMany(p => p.RegisterGroupRequests)
                 .HasForeignKey(d => d.ID_User)
-                .HasConstraintName("FK__RegisterG__ID_Us__62EF9734");
+                .HasConstraintName("FK__RegisterG__ID_Us__77168B72");
+        });
+
+        modelBuilder.Entity<ReportForCompletedRequestsByFund>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ReportForCompletedRequestsByFund");
+        });
+
+        modelBuilder.Entity<ReportForFundRecievedFund>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ReportForFundRecievedFunds");
+
+            entity.Property(e => e.TotalGoals).HasColumnType("money");
+            entity.Property(e => e.TotalRaised).HasColumnType("money");
+        });
+
+        modelBuilder.Entity<ReportForGroupRecievedFund>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ReportForGroupRecievedFunds");
+
+            entity.Property(e => e.FundsReceived).HasColumnType("money");
+            entity.Property(e => e.GoalToBeRecieved).HasColumnType("money");
+        });
+
+        modelBuilder.Entity<ReportForGroupRequest>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ReportForGroupRequests");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.ID_Role).HasName("PK__Role__43DCD32D6C8A475C");
+            entity.HasKey(e => e.ID_Role).HasName("PK__Role__43DCD32D2F5DD1C2");
 
             entity.ToTable("Role");
 
-            entity.HasIndex(e => e.RoleName, "UQ__Role__8A2B61606C8F4BC2").IsUnique();
+            entity.HasIndex(e => e.RoleName, "UQ__Role__8A2B61602CE48565").IsUnique();
 
             entity.Property(e => e.ID_Role).ValueGeneratedNever();
             entity.Property(e => e.RoleName).HasMaxLength(50);
@@ -405,7 +495,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.ID_User).HasName("PK__User__ED4DE44234324CB7");
+            entity.HasKey(e => e.ID_User).HasName("PK__User__ED4DE4423841A112");
 
             entity.ToTable("User", tb => tb.HasTrigger("trg_AssignDefaultUserRole"));
 
@@ -430,20 +520,20 @@ public partial class AppDbContext : DbContext
                     "UserRole",
                     r => r.HasOne<Role>().WithMany()
                         .HasForeignKey("ID_Role")
-                        .HasConstraintName("FK__UserRole__ID_Rol__577DE488"),
+                        .HasConstraintName("FK__UserRole__ID_Rol__6BA4D8C6"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("ID_User")
-                        .HasConstraintName("FK__UserRole__ID_Use__5689C04F"),
+                        .HasConstraintName("FK__UserRole__ID_Use__6AB0B48D"),
                     j =>
                     {
-                        j.HasKey("ID_User", "ID_Role").HasName("PK__UserRole__29702970010BCA26");
+                        j.HasKey("ID_User", "ID_Role").HasName("PK__UserRole__29702970FA6CDE5E");
                         j.ToTable("UserRole");
                     });
         });
 
         modelBuilder.Entity<VolunteerFund>(entity =>
         {
-            entity.HasKey(e => e.ID_Fund).HasName("PK__Voluntee__19C9BE5E85CEA3B9");
+            entity.HasKey(e => e.ID_Fund).HasName("PK__Voluntee__19C9BE5EA3E33F72");
 
             entity.ToTable("VolunteerFund");
 

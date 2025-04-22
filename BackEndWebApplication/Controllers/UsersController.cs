@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using MVProject.Application.DTOs.User;
 
-namespace BackEndWebApplication.Controllers.UsersController
+namespace MVProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -48,10 +48,10 @@ namespace BackEndWebApplication.Controllers.UsersController
             return Ok(new
             {
                 Id = data?.ID_User,
-                Roles = data?.Roles,
-                AccessToken = data?.AccessToken,
-                Message = data?.Message,
-                UserName = data?.UserName
+                data?.Roles,
+                data?.AccessToken,
+                data?.Message,
+                data?.UserName
             });
         }
 

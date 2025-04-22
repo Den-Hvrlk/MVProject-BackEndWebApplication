@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BackEndWebApplication.Controllers.MilitaryGroupsController
+namespace MVProject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -1,7 +1,5 @@
 ﻿using MVProject.Application.Interfaces;
 using MVProject.Application.Interfaces.Auth;
-using MVProject.Application.Services.Users;
-using MVProject.Domain.Interfaces.Users;
 using MVProject.Infrastructure;
 using MVProject.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +7,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using DotNetEnv;
-using MVProject.Application.Services.Funds;
-using MVProject.Domain.Interfaces.Funds;
 using MVProject.Infrastructure.Repositories;
+using MVProject.Application.Services;
+using MVProject.Domain.Interfaces;
 
 Env.Load();
 
@@ -44,8 +42,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFundService, FundService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IFundRepository, FundRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 

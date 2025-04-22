@@ -1,9 +1,8 @@
 ﻿using MVProject.Application.Interfaces;
-namespace MVProject.Application.Services.Funds;
+namespace MVProject.Application.Services;
 using MVProject.Application.DTOs.Fund;
 using MVProject.Domain.Entities;
-using MVProject.Domain.Interfaces.Funds;
-using MVProject.Domain.Interfaces.Users;
+using MVProject.Domain.Interfaces;
 
 public class FundService : IFundService
 {
