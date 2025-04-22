@@ -2,6 +2,7 @@
 using MVProject.Application.Interfaces;
 using MVProject.Domain.Entities;
 using MVProject.Domain.Interfaces;
+using System.Dynamic;
 
 namespace MVProject.Application.Services
 {
@@ -46,37 +47,47 @@ namespace MVProject.Application.Services
         public async Task<List<FundReportDto>> ListFundReportsAsync()
         {
             var raw = await _reportRepository.ListFundReportsAsync();
-            var result = raw.Cast<dynamic>();
+            var result = raw.Cast<ExpandoObject>();
 
-            return result.Select(x => new FundReportDto
+            return result.Select(x =>
             {
-                ID_FundReport = x.Report.ID_FundReport,
-                FundName = x.FundName,
-                Period = x.Report.Period,
-                CompletedRequestsCount = x.Report.CompletedRequestsCount,
-                CompletedFundraisingCount = x.Report.CompletedFundraisingCount,
-                TotalGoals = x.Report.TotalGoals,
-                TotalRaised = x.Report.TotalRaised
+                dynamic d = x;
+
+                return new FundReportDto
+                {
+                    ID_FundReport = d.Report.ID_FundReport,
+                    FundName = d.FundName,
+                    Period = d.Report.Period,
+                    CompletedRequestsCount = d.Report.CompletedRequestsCount,
+                    CompletedFundraisingCount = d.Report.CompletedFundraisingCount,
+                    TotalGoals = d.Report.TotalGoals,
+                    TotalRaised = d.Report.TotalRaised
+                };
             }).ToList();
         }
 
         public async Task<List<GroupReportDto>> ListGroupReportsAsync()
         {
             var raw = await _reportRepository.ListGroupReportsAsync();
-            var result = raw.Cast<dynamic>();
+            var result = raw.Cast<ExpandoObject>();
 
-            return result.Select(x => new GroupReportDto
+            return result.Select(x =>
             {
-                ID_GroupReport = x.Report.ID_GroupReport,
-                GroupName = x.GroupName,
-                Period = x.Report.Period,
-                FundraisingCount = x.Report.FundraisingCount,
-                ClosedFundraisingCount = x.Report.ClosedFundraisingCount,
-                GoalToBeRecieved = x.Report.GoalToBeRecieved,
-                FundsReceived = x.Report.FundsReceived,
-                AllRequestCount = x.Report.AllRequestCount,
-                CompletedRequestCount = x.Report.CompletedRequestCount,
-                IncompleteRequestCount = x.Report.IncompleteRequestCount
+                dynamic d = x;
+
+                return new GroupReportDto
+                {
+                    ID_GroupReport = d.Report.ID_GroupReport,
+                    GroupName = d.Group,
+                    Period = d.Report.Period,
+                    FundraisingCount = d.Report.FundraisingCount,
+                    ClosedFundraisingCount = d.Report.ClosedFundraisingCount,
+                    GoalToBeRecieved = d.Report.GoalToBeRecieved,
+                    FundsReceived = d.Report.FundsReceived,
+                    AllRequestCount = d.Report.AllRequestCount,
+                    CompletedRequestCount = d.Report.CompletedRequestCount,
+                    IncompleteRequestCount = d.Report.IncompleteRequestCount
+                };
             }).ToList();
         }
     }

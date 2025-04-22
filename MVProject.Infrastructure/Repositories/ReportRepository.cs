@@ -8,6 +8,7 @@ using MVProject.Domain.Entities;
 using MVProject.Domain.Entities.Views;
 using MVProject.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace MVProject.Infrastructure.Repositories
 {
@@ -146,7 +147,16 @@ namespace MVProject.Infrastructure.Repositories
                                     FundName = fund.FundName
                                 }).ToListAsync();
 
-            return result.Cast<object>().ToList();
+            // Преобразуем в ExpandoObject (поддерживает dynamic доступ)
+            var expandoList = result.Select(item =>
+            {
+                IDictionary<string, object?> expando = new ExpandoObject();
+                expando["Report"] = item.Report;
+                expando["FundName"] = item.FundName;
+                return (object)expando;
+            }).ToList();
+
+            return expandoList;
         }
         public async Task<List<object>> ListGroupReportsAsync()
         {
@@ -159,7 +169,15 @@ namespace MVProject.Infrastructure.Repositories
                                     Group = militarygroup.GroupName
                                 }).ToListAsync();
 
-            return result.Cast<object>().ToList();
+            var expandoList = result.Select(item =>
+            {
+                IDictionary<string, object?> expando = new ExpandoObject();
+                expando["Report"] = item.Report;
+                expando["Group"] = item.Group;
+                return (object)expando;
+            }).ToList();
+
+            return expandoList;
         }
     }
 }

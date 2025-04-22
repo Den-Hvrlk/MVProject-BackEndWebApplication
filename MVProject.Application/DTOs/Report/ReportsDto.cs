@@ -10,7 +10,7 @@ namespace MVProject.Application.DTOs.Report
     {
         public Guid ID_FundReport { get; set; }
         public string FundName { get; set; } = string.Empty;
-        public DateTime Period { get; set; }
+        public DateOnly Period { get; set; }
         public int CompletedRequestsCount { get; set; }
         public int CompletedFundraisingCount { get; set; }
         public decimal TotalGoals { get; set; }
@@ -21,7 +21,7 @@ namespace MVProject.Application.DTOs.Report
     {
         public Guid ID_GroupReport { get; set; }
         public string GroupName { get; set; } = string.Empty;
-        public DateTime Period { get; set; }
+        public DateOnly Period { get; set; }
         public int FundraisingCount { get; set; }
         public int ClosedFundraisingCount { get; set; }
         public decimal GoalToBeRecieved { get; set; }
