@@ -58,6 +58,32 @@ namespace MVProject.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReportById(Guid id)
+        {
+            var fundReport = await _reportService.GetFundReportAsync(id);
+            if (fundReport != null)
+            {
+                return Ok(new ReportByIdResponse
+                {
+                    ReportType = "fund",
+                    Data = fundReport
+                });
+            }
+
+            var groupReport = await _reportService.GetGroupReportAsync(id);
+            if (groupReport != null)
+            {
+                return Ok(new ReportByIdResponse
+                {
+                    ReportType = "group",
+                    Data = groupReport
+                });
+            }
+
+            return NotFound();
+        }
+
         [HttpGet]
         public async Task<IActionResult> ListReports()
         {
