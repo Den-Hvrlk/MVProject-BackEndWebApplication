@@ -147,7 +147,6 @@ namespace MVProject.Infrastructure.Repositories
                                     FundName = fund.FundName
                                 }).ToListAsync();
 
-            // Преобразуем в ExpandoObject (поддерживает dynamic доступ)
             var expandoList = result.Select(item =>
             {
                 IDictionary<string, object?> expando = new ExpandoObject();
