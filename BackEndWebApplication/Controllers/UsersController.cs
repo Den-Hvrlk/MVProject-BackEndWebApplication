@@ -51,7 +51,9 @@ namespace MVProject.API.Controllers
                 data?.Roles,
                 data?.AccessToken,
                 data?.Message,
-                data?.UserName
+                data?.UserName,
+                data?.UserFunds,
+                data?.UserGroups
             });
         }
 

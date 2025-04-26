@@ -90,5 +90,25 @@ namespace MVProject.Infrastructure.Repositories
                 throw new Exception("Виникла помилка при оновлені користувача в БД", ex);
             }
         }
+
+        public async Task<ICollection<FundMember>> GetUserFunds(Guid id)
+        {
+            return await _context.FundMembers
+                .AsNoTracking()
+                .Include(f => f.ID_FundNavigation)
+                .Include(f => f.ID_UserNavigation)
+                .Where(f => f.ID_User == id)
+                .ToListAsync();
+        }
+
+        public async Task<ICollection<MilitaryGrpMember>> GetUserGroups(Guid id)
+        {
+            return await _context.MilitaryGrpMembers
+                .AsNoTracking()
+                .Include(g => g.ID_GroupNavigation)
+                .Include(g => g.ID_UserNavigation)
+                .Where(g => g.ID_User == id)
+                .ToListAsync();
+        }
     }
 }

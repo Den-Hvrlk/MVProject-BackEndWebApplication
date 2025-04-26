@@ -53,7 +53,24 @@ namespace MVProject.Application.Services
 
             int[] roles = user.ID_Roles.Select(r => r.ID_Role).ToArray();
 
-            return (true, null, new LoginUserResponse(user.ID_User, roles, accessToken, refreshToken, "Ви успішно авторизувалися!", user.UserName));
+            var userFunds = await _userRepository.GetUserFunds(user.ID_User);
+            var userGroups = await _userRepository.GetUserGroups(user.ID_User);
+
+            var userFundDtos = userFunds.Select(fm => new UserFundDto(
+                fm.ID_Fund,
+                fm.ID_FundNavigation.FundName,
+                fm.ID_FundNavigation.CodeUSR
+            )).ToList();
+
+            var userGroupDtos = userGroups.Select(gm => new UserGroupDto(
+                gm.ID_Group,
+                gm.ID_GroupNavigation.GroupName
+            )).ToList();
+
+            return (true, null, new LoginUserResponse(
+                user.ID_User, roles, accessToken, refreshToken, "Ви успішно авторизувалися!", user.UserName,
+                userFundDtos, userGroupDtos
+            ));
         }
 
         public async Task<User?> GetUserByIdAsync(Guid id)

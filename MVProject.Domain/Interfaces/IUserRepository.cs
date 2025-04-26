@@ -9,5 +9,7 @@ namespace MVProject.Domain.Interfaces
         Task<User?> GetByIdAsync(Guid id);
         Task<User?> GetProfileByIdAsync(Guid userId);
         Task UpdateUserProfile(UserProfilePatch userProfilePatch);
+        Task<ICollection<FundMember>> GetUserFunds(Guid id);
+        Task<ICollection<MilitaryGrpMember>> GetUserGroups(Guid id);
     }
 }
