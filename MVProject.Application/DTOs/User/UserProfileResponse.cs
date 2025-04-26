@@ -16,5 +16,7 @@ namespace MVProject.Application.DTOs.User
         public DateOnly? BirthDate { get; set; }
         public string? PhoneNumber { get; set; }
         public string? AvatarPath { get; set; }
+        public List<UserFundDto> UserFunds { get; set; } = new List<UserFundDto>();
+        public List<UserGroupDto> UserGroups { get; set; } = new List<UserGroupDto>();
     }
 }

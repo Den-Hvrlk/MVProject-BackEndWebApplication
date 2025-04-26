@@ -88,6 +88,20 @@ namespace MVProject.Application.Services
             if (user == null)
                 return null;
 
+            var userFunds = await _userRepository.GetUserFunds(user.ID_User);
+            var userGroups = await _userRepository.GetUserGroups(user.ID_User);
+
+            var userFundDtos = userFunds.Select(fm => new UserFundDto(
+                fm.ID_Fund,
+                fm.ID_FundNavigation.FundName,
+                fm.ID_FundNavigation.CodeUSR
+            )).ToList();
+
+            var userGroupDtos = userGroups.Select(gm => new UserGroupDto(
+                gm.ID_Group,
+                gm.ID_GroupNavigation.GroupName
+            )).ToList();
+
             return new UserProfileResponse
             {
                 Id = user.ID_User,
@@ -97,7 +111,9 @@ namespace MVProject.Application.Services
                 Sex = user.Sex,
                 BirthDate = user.BirthDate,
                 PhoneNumber = user.Phone,
-                AvatarPath = user.UserAvatarPath
+                AvatarPath = user.UserAvatarPath,
+                UserFunds = userFundDtos,
+                UserGroups = userGroupDtos
             };
         }
 
