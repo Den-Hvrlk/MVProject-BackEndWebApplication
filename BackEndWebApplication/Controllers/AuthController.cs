@@ -34,6 +34,9 @@ namespace MVProject.API.Controllers
             if (user == null)
                 return Unauthorized("Користувача не знайдено");
 
+            var userFunds = await _userService.GetUserFunds(user.ID_User);
+            var userGroups = await _userService.GetUserGroups(user.ID_User);
+
             var newAccessToken = _jwtProvider.GenerateAccessToken(user);
 
             return Ok(new
@@ -43,6 +46,8 @@ namespace MVProject.API.Controllers
                 email = user.Email,
                 roles = user.ID_Roles.Select(r => r.ID_Role).ToArray(),
                 userName = user.UserName,
+                userFunds,
+                userGroups,
             });
         }
 

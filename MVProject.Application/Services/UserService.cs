@@ -81,6 +81,29 @@ namespace MVProject.Application.Services
             return user;
         }
 
+        public async Task<List<UserFundDto>> GetUserFunds (Guid ID_User)
+        {
+            var userFunds = await _userRepository.GetUserFunds(ID_User);
+
+            var userFundDtos = userFunds.Select(fm => new UserFundDto(
+                fm.ID_Fund,
+                fm.ID_FundNavigation.FundName,
+                fm.ID_FundNavigation.CodeUSR
+            )).ToList();
+            return userFundDtos;
+        }
+
+        public async Task<List<UserGroupDto>> GetUserGroups(Guid ID_User)
+        {
+            var userGroups = await _userRepository.GetUserGroups(ID_User);
+
+            var userGroupDtos = userGroups.Select(fm => new UserGroupDto(
+                fm.ID_Group,
+                fm.ID_GroupNavigation.GroupName
+            )).ToList();
+            return userGroupDtos;
+        }
+
         public async Task<UserProfileResponse?> GetUserProfileAsync(Guid userId)
         {
             var user = await _userRepository.GetProfileByIdAsync(userId);
